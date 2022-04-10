@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.tang.dao.mypage.EnrollMapper">
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM product
+    </select>
+
+    <sql id="selectFromBoard">
+        SELECT *
+        FROM product
+    </sql>
+
+    <select id="selectPage" parameterType="map" resultType="ProductDto">
+        <include refid="selectFromBoard"/>
+        ORDER BY p_num DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="select" parameterType="String" resultType="ProductDto">
+        <include refid="selectFromBoard"/>
+        WHERE m_id = #{m_id}
+    </select>
+
+</mapper>

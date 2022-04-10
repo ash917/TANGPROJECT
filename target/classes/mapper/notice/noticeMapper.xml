@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.tang.dao.notice.NoticeMapper">
+    <select id="count" resultType="int">
+        SELECT count(*) FROM noticeboard
+    </select>
+
+    <delete id="deleteAll">
+        DELETE FROM noticeboard
+    </delete>
+
+    <delete id="delete" parameterType="map">
+        DELETE FROM noticeboard WHERE bno = #{bno} and writer = #{writer}
+    </delete>
+
+    <insert id="insert" parameterType="NoticeDto">
+        INSERT INTO noticeboard
+            (title, content, writer)
+        VALUES
+            (#{title}, #{content}, #{writer})
+    </insert>
+
+    <select id="selectAll" resultType="NoticeDto">
+        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM noticeboard
+        ORDER BY reg_date DESC, bno DESC
+    </select>
+
+    <sql id="selectFromBoard">
+        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM noticeboard
+    </sql>
+
+    <select id="select" parameterType="int" resultType="NoticeDto">
+        <include refid="selectFromBoard"/>
+        WHERE bno = #{bno}
+    </select>
+
+    <select id="selectPage" parameterType="map" resultType="NoticeDto">
+        <include refid="selectFromBoard"/>
+        ORDER BY reg_date DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <update id="update" parameterType="NoticeDto">
+        UPDATE noticeboard
+        SET   title = #{title}
+          , content = #{content}
+          , up_date = now()
+        WHERE bno = #{bno} and writer = #{writer}
+    </update>
+
+    <update id="updateCommentCnt" parameterType="map">
+        UPDATE noticeboard
+        SET   comment_cnt = comment_cnt + #{cnt}
+        WHERE bno = #{bno}
+    </update>
+
+    <update id="increaseViewCnt" parameterType="int">
+        UPDATE noticeboard
+        SET   view_cnt = view_cnt + 1
+        WHERE bno = #{bno}
+    </update>
+
+</mapper>

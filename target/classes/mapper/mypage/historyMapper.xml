@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.tang.dao.mypage.HistoryMapper">
+    <select id="selectAll" resultType="HistoryDto">
+        SELECT in_num, m_id, in_point, in_info, in_date
+        FROM pointinfo
+        ORDER BY in_date DESC, in_num DESC
+    </select>
+
+    <sql id="selectFromBoard">
+        SELECT in_num, m_id, in_point, in_info, in_date
+        FROM pointinfo
+    </sql>
+
+    <select id="select" parameterType="int" resultType="HistoryDto">
+        <include refid="selectFromBoard"/>
+        WHERE in_num = #{in_num}
+    </select>
+
+    <select id="selectPage" parameterType="map" resultType="HistoryDto">
+        <include refid="selectFromBoard"/>
+        ORDER BY in_date DESC, in_num DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="selectPoint" resultType="User">
+        SELECT *
+        FROM user_info
+        WHERE id = #{id}
+    </select>
+
+</mapper>

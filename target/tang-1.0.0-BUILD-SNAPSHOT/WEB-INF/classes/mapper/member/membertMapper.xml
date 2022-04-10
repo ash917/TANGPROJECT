@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.tang.dao.member.MemberMapper">
+
+    <!-- 게시판 글 작성 -->
+    <insert id="register" parameterType="User">
+        INSERT INTO user_info(id, pwd, pwd2, nick, email, hp)
+        VALUES(#{id}, #{pwd}, #{pwd2}, #{nick}, #{email}, #{hp})
+    </insert>
+
+    <!-- 아이디 중복 체크 -->
+    <select id="idChk" resultType="int">
+        SELECT COUNT(*) FROM user_info
+        WHERE id = #{id}
+    </select>
+
+    <!-- 닉네임 중복 체크 -->
+    <select id="nickChk" resultType="int">
+        SELECT COUNT(*) FROM user_info
+        WHERE nick = #{nick}
+    </select>
+
+</mapper>
