@@ -65,7 +65,8 @@ public class ProductController {
         productDto.setP_img1(upload);
 
         try {
-              remain(productDto);
+            // p_rdate
+            productDto.setP_rdate(remain(productDto));
 //            productDto.setP_rdate(String.valueOf(remainTime));
 
         } catch (ParseException e) {
@@ -181,11 +182,10 @@ public class ProductController {
     }
 
      static String remain(ProductDto productDto) throws ParseException {
-         String date1 = String.valueOf(productDto.getP_date()); //날짜1
-         String date2 = String.valueOf(productDto.getP_sdate()); //날짜2
-
-         Date format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date1);
-         Date format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date2);
+         Date format1 = productDto.getP_date();
+         Date format2 = new Date();
+         System.out.println("format1 = " + format1);
+         System.out.println("format2 = " + format2);
 
          long diffSec = (format1.getTime() - format2.getTime()) / 1000; //초 차이
          long diffMin = (format1.getTime() - format2.getTime()) / 60000; //분 차이
@@ -193,7 +193,7 @@ public class ProductController {
          long diffDays = diffSec / (24 * 60 * 60); //일자수 차이
 
          if (diffSec<60)
-         return String.valueOf(diffSec + "초 남음");
+         return String.format("%d초 남음", diffSec);
          else if (diffMin < 60)
          return String.valueOf(diffMin + "분 남음");
          else if (diffHor < 24)

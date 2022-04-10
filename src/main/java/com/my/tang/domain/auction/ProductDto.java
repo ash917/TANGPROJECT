@@ -14,7 +14,8 @@ public class ProductDto {
     private int p_eprice; //즉구가
     private Date p_sdate; //경매시작일
     private Date p_date; //경매종료일
-    private Date p_rdate; //남은시간
+    // private Date p_rdate; //남은시간
+    private String p_rdate;
     private String p_img1;
     private String p_img2;
     private String p_img3;
@@ -84,7 +85,7 @@ public class ProductDto {
         return p_date;
     }
 
-    public Date getP_rdate() {
+    public String getP_rdate() {
         return p_rdate;
     }
 
@@ -107,12 +108,14 @@ public class ProductDto {
     }
 
     public void setP_rdate(String p_rdate) {
+        /*
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             this.p_rdate = f.parse(p_rdate);
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
+        this.p_rdate = p_rdate;
     }
 
     public String getP_img1() {

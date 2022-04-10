@@ -86,7 +86,7 @@
         카테고리 선택 <input name="p_ca" id="p_ca" type="text" value="${po.p_ca}" placeholder="  카테고리명을 입력해 주세요." ${""}><br>
         시작가<input name="p_sprice" id="p_sprice" type="text" value="${po.p_sprice}" placeholder="  시작가를 입력해 주세요." ${""}> <br>
         즉시구매가<input name="p_eprice" id="p_eprice" type="text" value="${po.p_eprice}" placeholder="  즉시구매가를 입력해 주세요." ${""}> <br>
-        종료일자 <input name="p_date" id="p_date" type="text" value="${po.p_date}" placeholder="  2022-01-01 09:23:00 식으로 입력해주세요" ${""}> <br>
+        종료일자 <input name="p_date" id="p_date" type="text" value="${po.p_date}" placeholder="  2022-01-01 18:23:00 식으로 입력해주세요" ${""}> <br>
 
         <%-- <sec:csrfInput /> 또는 --%>
         <!--  파일첨부 -->
