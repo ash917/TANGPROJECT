@@ -36,12 +36,19 @@ public class EnrollController {
             int totalCnt = enrollService.getCount();
             PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
 
+            //System.out.println(p_num);
+
             Map map = new HashMap();
             map.put("offset", (page-1)*pageSize);
             map.put("pageSize", pageSize);
+            map.put("m_id", writer);
+            map.put("p_num", p_num);
 
-            List<ProductDto> list = enrollService.read(writer);
-            System.out.println("list = " + list);
+            List<ProductDto> list = enrollService.read(map);
+            //System.out.println("list = " + list);
+            //List<ProductDto> list2 = enrollService.getPage(map);
+
+
 
             m.addAttribute("writer",writer);
             m.addAttribute("list", list);

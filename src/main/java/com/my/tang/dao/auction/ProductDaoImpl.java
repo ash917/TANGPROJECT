@@ -31,6 +31,11 @@ public class ProductDaoImpl implements ProductDao{
         return session.selectList(namespace+"selectPage", map);
     } // List<E> selectList(String statement, Object parameter)
 
+//    @Override
+//    public ProductDto selectClone(Map map) throws Exception {
+//        return session.selectOne(namespace+"selectClone", map);
+//    } // List<E> selectList(String statement, Object parameter)
+
     public ProductDto select(int p_num) throws Exception {
         return session.selectOne(namespace+"select", p_num);
     } // T selectOne(String statement, Object parameter)
@@ -52,5 +57,13 @@ public class ProductDaoImpl implements ProductDao{
     public int update(ProductDto productDto) throws Exception {
         return session.update(namespace+"update", productDto);
     } // int update(String statement, Object parameter)
+
+    public String selectPdate(Integer p_num) throws Exception {
+        return session.selectOne(namespace+"selectPdate", p_num);
+    } // T selectOne(String statement, Object parameter)
+
+    public Integer selectPnum(Integer p_num) throws Exception {
+        return session.selectOne(namespace+"selectPnum", p_num);
+    } // T selectOne(String statement, Object parameter)
 
 }

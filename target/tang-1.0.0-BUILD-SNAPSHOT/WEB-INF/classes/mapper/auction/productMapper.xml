@@ -6,9 +6,9 @@
 
     <insert id="insert" parameterType="ProductDto" >
         INSERT INTO product
-        (m_id, p_title, p_ca, p_sprice, p_eprice, p_sdate, p_date, p_rdate, p_img1, p_img2, p_img3, p_img4, p_img5, p_detail, a_price)
+        (m_id, p_title, p_ca, p_sprice, p_eprice, p_plus, p_sdate, p_date, p_img1, p_img2, p_img3, p_img4, p_img5, p_detail, classify, a_nprice, a_count, a_price)
         VALUES
-            (#{m_id}, #{p_title}, #{p_ca}, #{p_sprice}, #{p_eprice}, now(), #{p_date}, #{p_rdate}, #{p_img1}, #{p_img2}, #{p_img3}, #{p_img4}, #{p_img5}, #{p_detail}, #{a_price})
+            (#{m_id}, #{p_title}, #{p_ca}, #{p_sprice}, #{p_eprice}, 0, now(), #{p_date}, #{p_img1}, #{p_img2}, #{p_img3}, #{p_img4}, #{p_img5}, #{p_detail}, #{classify}, 0, 0, #{a_price})
     </insert>
 
     <select id="count" resultType="int">
@@ -26,8 +26,26 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
+<!--    <select id="selectClone" parameterType="map" resultType="ProductDto">-->
+<!--        <include refid="selectFromBoard"/>-->
+<!--        ORDER BY p_num DESC-->
+<!--        LIMIT #{offset}, #{pageSize}-->
+<!--    </select>-->
+
     <select id="select" parameterType="int" resultType="ProductDto">
         <include refid="selectFromBoard"/>
+        WHERE p_num = #{p_num}
+    </select>
+
+    <select id="selectPdate" parameterType="int" resultType="String">
+        SELECT p_date
+        FROM product
+        WHERE p_num = #{p_num}
+    </select>
+
+    <select id="selectPnum" parameterType="Integer" resultType="Integer">
+        SELECT p_num
+        FROM product
         WHERE p_num = #{p_num}
     </select>
 
@@ -41,10 +59,19 @@
 
     <update id="update" parameterType="ProductDto">
         UPDATE product
-        SET   p_title = #{p_title}
-          , p_detail = #{p_detail}
-          , p_date = now()
-        WHERE p_num = #{p_num} and m_id = #{m_id}
+        SET   a_price = #{a_price}
+            , p_plus = #{p_plus}
+            , a_count = #{a_count}
+            , classify = #{classify}
+            , customer_id = #{customer_id}
+            , a_nprice = #{a_nprice}
+            , p_status = #{p_status}
+            , flag_1 = #{flag_1}
+            , flag_2 = #{flag_2}
+            , flag_3 = #{flag_3}
+            , flag_4 = #{flag_4}
+            , flag_5 = #{flag_5}
+        WHERE p_num = #{p_num}
     </update>
 
 

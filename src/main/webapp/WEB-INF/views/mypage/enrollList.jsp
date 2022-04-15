@@ -163,6 +163,7 @@
         <li><a href="<c:url value='/mypage/list'/>">마이페이지</a></li>
         <li><a href="<c:url value='/history/list'/>">포인트 내역</a></li>
         <li><a href="<c:url value='/enroll/list'/>">물품등록내역</a></li>
+        <li><a href="<c:url value='/bid/list'/>">경매입찰내역</a></li>
     </ul>
 </div>
 <div style="text-align:center">
@@ -171,9 +172,9 @@
         <table>
             <c:forEach var="po" items="${list}">
                 <tr>
-                    <td>${po.classify}</td>
+                    <td>${po.p_num}</td>
                     <td><a href="<c:url value="/product/read?p_num=${po.p_num}&page=${page}&pageSize=${pageSize}"/>">${po.p_title}</a></td>
-                    <td class="writer">${po.p_rdate}</td>
+                    <td>마감시간 ${po.p_date}</td>
                     <td>시작가 ${po.p_sprice}<br>
                             현재가 ${po.a_price}<br>
                    즉시구매가 ${po.p_eprice}<br>

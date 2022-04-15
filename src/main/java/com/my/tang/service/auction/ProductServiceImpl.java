@@ -33,11 +33,14 @@ public class ProductServiceImpl implements ProductService {
         return productDao.selectPage(map);
     }
 
+//    @Override
+//    public ProductDto getClone(Map map) throws Exception {
+//        return productDao.selectClone(map);
+//    }
+
     @Override
     public ProductDto read(int p_num) throws Exception {
-        ProductDto productDto = productDao.select(p_num);
-
-        return productDto;
+        return productDao.select(p_num);
     }
 
     @Override
@@ -48,6 +51,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public int modify(ProductDto productDto) throws Exception {
         return productDao.update(productDto);
+    }
+
+    @Override
+    public String selectPdate(Integer p_num) throws Exception {
+        return productDao.selectPdate(p_num);
+    }
+
+    @Override
+    public Integer selectPnum(Integer p_num) throws Exception {
+        return productDao.selectPnum(p_num);
     }
 
 }

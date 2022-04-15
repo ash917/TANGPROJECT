@@ -8,6 +8,6 @@ import java.util.Map;
 public interface EnrollDao {
     int count() throws Exception;
     List<ProductDto> selectPage(Map map) throws Exception;
-    List<ProductDto> select(String m_id) throws Exception;
+    List<ProductDto> select(Map map) throws Exception;
 
 }

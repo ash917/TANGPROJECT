@@ -8,6 +8,6 @@ import java.util.Map;
 public interface EnrollService {
     int getCount() throws Exception;
     List<ProductDto> getPage(Map map) throws Exception;
-    List<ProductDto> read(String m_id) throws Exception;
+    List<ProductDto> read(Map map) throws Exception;
 
 }

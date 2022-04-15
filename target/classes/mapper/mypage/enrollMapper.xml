@@ -19,9 +19,11 @@
         LIMIT #{offset}, #{pageSize}
     </select>
 
-    <select id="select" parameterType="String" resultType="ProductDto">
+    <select id="select" parameterType="map" resultType="ProductDto">
         <include refid="selectFromBoard"/>
         WHERE m_id = #{m_id}
+        ORDER BY p_num DESC
+        LIMIT #{offset}, #{pageSize}
     </select>
 
 </mapper>

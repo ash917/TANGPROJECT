@@ -3,7 +3,7 @@ package com.my.tang.domain.etc;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import static java.lang.Math.*;
-import static java.util.Objects.requireNonNullElse;
+
 
 public class SearchCondition {
     private Integer page = 1;
@@ -55,7 +55,7 @@ public class SearchCondition {
     }
 
     public void setPageSize(Integer pageSize) {
-        this.pageSize = requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE);
+        //this.pageSize = requireNonNullElse(pageSize, DEFAULT_PAGE_SIZE);
 
         // MIN_PAGE_SIZE <= pageSize <= MAX_PAGE_SIZE
         this.pageSize = max(MIN_PAGE_SIZE, min(this.pageSize, MAX_PAGE_SIZE));

@@ -5,6 +5,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,13 @@ public class EnrollDaoImpl implements EnrollDao {
         return session.selectList(namespace+"selectPage", map);
     } // List<E> selectList(String statement, Object parameter)
 
-    public  List<ProductDto> select(String m_id) throws Exception {
-        return session.selectList(namespace+"select", m_id);
+    public  List<ProductDto> select(Map map) throws Exception {
+//        String m_id = null;
+//        Integer p_num = null;
+//        map = new HashMap();
+//        map.put("m_id", m_id);
+//        map.put("p_num", p_num);
+        return session.selectList(namespace+"select", map);
     } // T selectOne(String statement, Object parameter)
 
 }

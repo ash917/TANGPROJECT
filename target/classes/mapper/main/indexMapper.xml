@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.tang.dao.main.IndexMapper">
+    <sql id="selectFromBoard">
+        SELECT *
+        FROM product
+    </sql>
+
+    <select id="selectPage" parameterType="map" resultType="ProductDto">
+        <include refid="selectFromBoard"/>
+        ORDER BY p_num DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <update id="update" parameterType="ProductDto">
+        UPDATE product
+        SET  customer_id = #{customer_id}
+        WHERE p_num = #{p_num}
+    </update>
+
+</mapper>

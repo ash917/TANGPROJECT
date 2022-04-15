@@ -126,6 +126,7 @@ public class BoardController {
             map.put("pageSize", pageSize);
 
             List<BoardDto> list = boardService.getPage(map);
+
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
             m.addAttribute("page", page);

@@ -24,8 +24,8 @@ public class EnrollServiceImpl implements EnrollService {
     }
 
     @Override
-    public  List<ProductDto> read(String m_id) throws Exception {
-        List<ProductDto> productDto = enrollDao.select(m_id);
+    public  List<ProductDto> read(Map map) throws Exception {
+        List<ProductDto> productDto = enrollDao.select(map);
         return productDto;
     }
 

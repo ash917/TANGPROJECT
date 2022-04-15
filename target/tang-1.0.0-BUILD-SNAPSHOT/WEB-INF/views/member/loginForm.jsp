@@ -71,6 +71,7 @@
     <li><a href="<c:url value='/mypage/list'/>">마이페이지</a></li>
     <li><a href="<c:url value='/history/list'/>">포인트 내역</a></li>
     <li><a href="<c:url value='/enroll/list'/>">물품등록내역</a></li>
+    <li><a href="<c:url value='/bid/list'/>">경매입찰내역</a></li>
   </ul>
 </div>
 <form action="<c:url value="/login/login"/>" method="post" onsubmit="return formCheck(this);">
