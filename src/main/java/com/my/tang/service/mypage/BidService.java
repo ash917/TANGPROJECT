@@ -9,5 +9,6 @@ public interface BidService {
     int getCount() throws Exception;
     List<ProductDto> getPage(Map map) throws Exception;
     List<ProductDto> read(Map map) throws Exception;
+    int modify(ProductDto productDto) throws Exception;
 
 }

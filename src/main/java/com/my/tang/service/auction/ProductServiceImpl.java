@@ -44,8 +44,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public int remove(Integer p_num, String m_id) throws Exception {
-        return productDao.delete(p_num, m_id);
+    public int remove2(Integer p_num, String customer_id) throws Exception {
+        return productDao.delete2(p_num, customer_id);
     }
 
     @Override

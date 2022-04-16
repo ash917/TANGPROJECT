@@ -70,6 +70,7 @@ public class ProductController {
         String upload = uploadPath + fileName;
         productDto.setP_img1(upload);
 
+
 //        try {
 //            // p_rdate
 ////            productDto.setP_rdate(remain2(productDto));
@@ -94,8 +95,55 @@ public class ProductController {
         //System.out.println(p_num);
         String writer = (String) session.getAttribute("id");
         productDto.setM_id(writer);
+        //System.out.println(writer);
+        productDto.setCustomer_id(writer);
+        //System.out.println(productDto.getCustomer_id());
+//        if (productDto.getFlag_1() == null || productDto.getFlag_1().equals("")) {
+//            productDto.setFlag_1(productDto.getCustomer_id());
+//        }
 
 
+//        if (productDto.getFlag_1() == null || productDto.getFlag_1().equals("")) {
+//            productDto.setFlag_1(productDto.getCustomer_id());
+//        } else if  (productDto.getFlag_2() == null || productDto.getFlag_2().equals("")) {
+//            productDto.setFlag_2(productDto.getCustomer_id());
+//        } else if  (productDto.getFlag_3() == null || productDto.getFlag_3().equals("")) {
+//            productDto.setFlag_3(productDto.getCustomer_id());
+//        } else if  (productDto.getFlag_4() == null || productDto.getFlag_4().equals("")) {
+//            productDto.setFlag_4(productDto.getCustomer_id());
+//        } else if  (productDto.getFlag_5() == null || productDto.getFlag_5().equals("")) {
+//            productDto.setFlag_5(productDto.getCustomer_id());
+//        }
+
+
+//        if(productDto.getFlag_1() != null && !productDto.getFlag_1().equals("") && productDto.getFlag_2() != null && !productDto.getFlag_2().equals("") &&
+//                productDto.getFlag_3() != null && !productDto.getFlag_3().equals("") && productDto.getFlag_4() != null && !productDto.getFlag_4().equals("") &&
+//                productDto.getFlag_5() != null && !productDto.getFlag_5().equals("")) {
+//            Set set = new HashSet();
+//            set.add(productDto.getFlag_1());
+//            set.add(productDto.getFlag_2());
+//            set.add(productDto.getFlag_3());
+//            set.add(productDto.getFlag_4());
+//            set.add(productDto.getFlag_5());
+//
+//            Iterator<String> iter = set.iterator(); // set을 Iterator 안에 담기
+//            while(iter.hasNext()) { // iterator에 다음 값이 있다면
+//                if (productDto.getFlag_1() != null && !productDto.getFlag_1().equals("")){
+//                    productDto.setFlag_1(iter.next()); // iter에서 값 꺼내서 집어 넣기
+//                } else if (productDto.getFlag_2() != null && !productDto.getFlag_2().equals("")) {
+//                    productDto.setFlag_2(iter.next());
+//                } else if (productDto.getFlag_3() != null && !productDto.getFlag_3().equals("")) {
+//                    productDto.setFlag_3(iter.next());
+//                } else if (productDto.getFlag_4() != null && !productDto.getFlag_4().equals("")) {
+//                    productDto.setFlag_4(iter.next());
+//                } else if (productDto.getFlag_5() != null && !productDto.getFlag_5().equals("")) {
+//                    productDto.setFlag_5(iter.next());
+//                }
+//            }
+//        }
+
+
+        //System.out.println(productDto.getFlag_1());
 
         try {
             if (productService.write(productDto) != 1) //write 메소드가 각각의 request.parameter 역할을 한다?
@@ -103,7 +151,7 @@ public class ProductController {
 
 //            Map map = new HashMap();
 //            List<ProductDto> list = productService.getPage(map);
-
+            //System.out.println(productDto.getFlag_1());
             rattr.addFlashAttribute("msg", "WRT_OK");
             //System.out.println(productDto.getP_title()); //productDto는 다 보낼 수 있음.. 그 각각의 값이 문제
             m.addAttribute("po", productDto);      // 등록하려던 내용을 보여줘야 함.
@@ -242,7 +290,7 @@ public class ProductController {
 //                }
 //            }
 
-            String customer_id = (String)session.getAttribute("id");
+            String customer_id = (String)session.getAttribute("id"); //수정할 때 접속 id를 customer_id에 입력
             article.setCustomer_id(customer_id);
 
             article.setA_price(article.getA_price() + article.getP_plus()); //현재가는 현재값 + 추가입찰금액
@@ -305,6 +353,25 @@ public class ProductController {
 //                article.setClassify("진행중 - 현재 최고가 입찰");
 //           }
 
+//            String flag_1 = article.getFlag_1();
+//            String flag_2 = article.getFlag_2();
+//            String flag_3 = article.getFlag_3();
+//            String flag_4 = article.getFlag_4();
+//            String flag_5 = article.getFlag_5();
+//            Boolean bid_checked = article.isBid_checked();
+//
+//            if (customer_id.equals(flag_1)) {
+//                article.setBid_checked(true);
+//            } else if (customer_id.equals(flag_2)) {
+//                article.setBid_checked(true);
+//            } else if (customer_id.equals(flag_3)) {
+//                article.setBid_checked(true);
+//            } else if (customer_id.equals(flag_4)) {
+//                article.setBid_checked(true);
+//            } else if (customer_id.equals(flag_5)) {
+//                article.setBid_checked(true);
+//            }
+
 
             //System.out.println("중요" + article.getA_price() + article.getP_plus());
             productService.modify(article);
@@ -329,27 +396,27 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/remove")
-    public String remove(Integer p_num, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
-        String m_id = (String)session.getAttribute("id");
-
-        try {
-            m.addAttribute("page", page);
-            m.addAttribute("pageSize", pageSize);
-
-            int rowCnt = productService.remove(p_num, m_id);
-
-            if(rowCnt!=1)
-                throw new Exception("board remove error");
-
-            rattr.addFlashAttribute("msg","DEL_OK");
-        } catch (Exception e) {
-            e.printStackTrace();
-            rattr.addFlashAttribute("msg", "DEL_ERR");
-        }
-
-        return "redirect:/auction/list"; //모델에 담으면 redirect 시 값이 자동으로 뒤에 붙음
-    }
+//    @PostMapping("/remove")
+//    public String remove(Integer p_num, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
+//        String m_id = (String)session.getAttribute("id");
+//
+//        try {
+//            m.addAttribute("page", page);
+//            m.addAttribute("pageSize", pageSize);
+//
+//            int rowCnt = productService.remove(p_num, m_id);
+//
+//            if(rowCnt!=1)
+//                throw new Exception("board remove error");
+//
+//            rattr.addFlashAttribute("msg","DEL_OK");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            rattr.addFlashAttribute("msg", "DEL_ERR");
+//        }
+//
+//        return "redirect:/auction/list"; //모델에 담으면 redirect 시 값이 자동으로 뒤에 붙음
+//    }
 
     private boolean loginCheck(HttpServletRequest request) {
         // 1. 세션을 얻어서

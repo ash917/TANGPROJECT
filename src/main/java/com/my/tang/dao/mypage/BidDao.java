@@ -9,5 +9,6 @@ public interface BidDao {
     int count() throws Exception;
     List<ProductDto> selectPage(Map map) throws Exception;
     List<ProductDto> select(Map map) throws Exception;
+    int update(ProductDto productDto) throws Exception;
 
 }

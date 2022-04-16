@@ -30,5 +30,8 @@ public class BidServiceImpl implements BidService {
         return productDto;
     }
 
-
+    @Override
+    public int modify(ProductDto productDto) throws Exception {
+        return bidDao.update(productDto);
+    }
 }

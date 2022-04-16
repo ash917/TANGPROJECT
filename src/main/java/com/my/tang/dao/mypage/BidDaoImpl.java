@@ -32,4 +32,9 @@ public class BidDaoImpl implements BidDao {
         return session.selectList(namespace+"select", map);
     } // T selectOne(String statement, Object parameter)
 
+    @Override
+    public int update(ProductDto productDto) throws Exception {
+        return session.update(namespace+"update", productDto);
+    } // int update(String statement, Object parameter)
+
 }

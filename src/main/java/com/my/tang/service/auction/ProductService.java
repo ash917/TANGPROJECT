@@ -14,7 +14,7 @@ public interface ProductService {
     List<ProductDto> getPage(Map map) throws Exception;
 //    ProductDto getClone(Map map) throws Exception;
     ProductDto read(int p_num) throws Exception;
-    int remove(Integer p_num, String m_id) throws Exception;
+    int remove2(Integer p_num, String customer_id) throws Exception;
     int modify(ProductDto productDto) throws Exception;
     String selectPdate(Integer p_num) throws Exception;
     Integer selectPnum(Integer p_num) throws Exception;

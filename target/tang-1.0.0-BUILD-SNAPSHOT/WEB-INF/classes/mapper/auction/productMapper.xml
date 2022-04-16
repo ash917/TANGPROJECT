@@ -6,9 +6,9 @@
 
     <insert id="insert" parameterType="ProductDto" >
         INSERT INTO product
-        (m_id, p_title, p_ca, p_sprice, p_eprice, p_plus, p_sdate, p_date, p_img1, p_img2, p_img3, p_img4, p_img5, p_detail, classify, a_nprice, a_count, a_price)
+        (m_id, customer_id, flag_1, flag_2, flag_3, flag_4, flag_5, p_title, p_ca, p_sprice, p_eprice, p_plus, p_sdate, p_date, p_img1, p_img2, p_img3, p_img4, p_img5, p_detail, classify, p_status, a_nprice, a_count, a_price, bid_checked)
         VALUES
-            (#{m_id}, #{p_title}, #{p_ca}, #{p_sprice}, #{p_eprice}, 0, now(), #{p_date}, #{p_img1}, #{p_img2}, #{p_img3}, #{p_img4}, #{p_img5}, #{p_detail}, #{classify}, 0, 0, #{a_price})
+            (#{m_id}, #{customer_id}, #{flag_1}, #{flag_2}, #{flag_3}, #{flag_4}, #{flag_5}, #{p_title}, #{p_ca}, #{p_sprice}, #{p_eprice}, 0, now(), #{p_date}, #{p_img1}, #{p_img2}, #{p_img3}, #{p_img4}, #{p_img5}, #{p_detail}, #{classify}, 0, 0, 0, #{a_price}, 0)
     </insert>
 
     <select id="count" resultType="int">
@@ -53,8 +53,8 @@
         DELETE FROM product
     </delete>
 
-    <delete id="delete" parameterType="map">
-        DELETE FROM product WHERE p_num = #{p_num} and m_id = #{m_id}
+    <delete id="delete2" parameterType="map">
+        DELETE flag2 = #{flag_2} FROM product WHERE p_num = #{p_num} and customer_id = #{customer_id}
     </delete>
 
     <update id="update" parameterType="ProductDto">
@@ -71,6 +71,7 @@
             , flag_3 = #{flag_3}
             , flag_4 = #{flag_4}
             , flag_5 = #{flag_5}
+            , bid_checked = #{bid_checked}
         WHERE p_num = #{p_num}
     </update>
 

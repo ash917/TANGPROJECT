@@ -46,11 +46,11 @@ public class ProductDaoImpl implements ProductDao{
     } // int delete(String statement)
 
     @Override
-    public int delete(Integer p_num, String m_id) throws Exception {
+    public int delete2(Integer p_num, String customer_id) throws Exception {
         Map map = new HashMap();
         map.put("p_num", p_num);
-        map.put("m_id", m_id);
-        return session.delete(namespace+"delete", map);
+        map.put("m_id", customer_id);
+        return session.delete(namespace+"delete2", map);
     } // int delete(String statement, Object parameter)
 
     @Override

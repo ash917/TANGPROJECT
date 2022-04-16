@@ -36,7 +36,18 @@ public class ProductDto {
     private int a_nprice; //입찰가
     private int a_count; //입찰횟수
     private int a_price; //현재가
+    private boolean bid_checked; //입찰 여부 체크
 
+
+
+
+    public boolean isBid_checked() {
+        return bid_checked;
+    }
+
+    public void setBid_checked(boolean bid_checked) {
+        this.bid_checked = bid_checked;
+    }
 
     public String getFlag_1() {
         return flag_1;

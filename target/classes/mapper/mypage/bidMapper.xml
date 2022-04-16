@@ -21,9 +21,17 @@
 
     <select id="select" parameterType="map" resultType="ProductDto">
         <include refid="selectFromBoard"/>
-        WHERE customer_id = #{customer_id}
+        WHERE bid_checked = 1
         ORDER BY p_num DESC
         LIMIT #{offset}, #{pageSize}
     </select>
+
+    <update id="update" parameterType="ProductDto">
+        UPDATE product
+        SET
+          customer_id = #{customer_id}
+        , bid_checked = #{bid_checked}
+        WHERE p_num = #{p_num}
+    </update>
 
 </mapper>

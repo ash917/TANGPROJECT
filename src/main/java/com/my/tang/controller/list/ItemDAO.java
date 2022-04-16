@@ -95,6 +95,7 @@ public class ItemDAO {
 				article.setFlag_3(rs.getString("flag_3"));
 				article.setFlag_4(rs.getString("flag_4"));
 				article.setFlag_5(rs.getString("flag_5"));
+				article.setBid_checked(rs.getBoolean("bid_checked"));
 
 			}
 

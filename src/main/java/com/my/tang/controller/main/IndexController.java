@@ -52,25 +52,34 @@ public class IndexController {
             m.addAttribute("page", page);
             m.addAttribute("pageSize", pageSize);
 
-            Integer no = list.get(0).getP_num();
-            //System.out.println(no);
-            ItemViewService itemViewService = new ItemViewService();
-            ProductDto article = itemViewService.getArticle(no);
 
-            //System.out.println(article.getFlag_1());
-            if (article.getFlag_1().equals(customer_id)) {
-                article.setCustomer_id(article.getFlag_1());
-            } else if (article.getFlag_2().equals(customer_id)) {
-                article.setCustomer_id(article.getFlag_2());
-            } else if (article.getFlag_3().equals(customer_id)) {
-                article.setCustomer_id(article.getFlag_3());
-            } else if (article.getFlag_4().equals(customer_id)) {
-                article.setCustomer_id(article.getFlag_4());
-            } else if (article.getFlag_5().equals(customer_id)) {
-                article.setCustomer_id(article.getFlag_5());
+            ProductDto article = null;
+            try {
+                Integer no = list.get(0).getP_num();
+                ItemViewService itemViewService = new ItemViewService();
+                article = itemViewService.getArticle(no);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-            indexService.modify(article);
+            //System.out.println(no);
+//            session.setAttribute("p_num", article.getP_num());
+
+//            if (article.getFlag_1() != null && article.getFlag_1().equals("") && article.getCustomer_id() != null && article.getCustomer_id().equals("")) {
+//                if (article.getFlag_1().equals(customer_id)) {
+//                    article.setCustomer_id(article.getFlag_1());
+//                } else if (article.getFlag_2().equals(customer_id)) {
+//                    article.setCustomer_id(article.getFlag_2());
+//                } else if (article.getFlag_3().equals(customer_id)) {
+//                    article.setCustomer_id(article.getFlag_3());
+//                } else if (article.getFlag_4().equals(customer_id)) {
+//                    article.setCustomer_id(article.getFlag_4());
+//                } else if (article.getFlag_5().equals(customer_id)) {
+//                    article.setCustomer_id(article.getFlag_5());
+//                }
+//            }
+//            //System.out.println(article.getFlag_1());
+//            indexService.modify(article);
         } catch (Exception e) {
             e.printStackTrace();
         }
