@@ -23,7 +23,6 @@
         <include refid="selectFromBoard"/>
         WHERE bid_checked = 1
         ORDER BY p_num DESC
-        LIMIT #{offset}, #{pageSize}
     </select>
 
     <update id="update" parameterType="ProductDto">

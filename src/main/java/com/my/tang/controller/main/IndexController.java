@@ -37,6 +37,7 @@ public class IndexController {
 
         try {
             String customer_id = (String) session.getAttribute("id");
+            User user = indexService.getPoint(customer_id);
 
             PageHandler pageHandler = new PageHandler(page, pageSize);
 
@@ -47,6 +48,7 @@ public class IndexController {
 
             List<ProductDto> list = indexService.getPage(map);
 
+            m.addAttribute("user", user);
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
             m.addAttribute("page", page);

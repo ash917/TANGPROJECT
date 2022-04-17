@@ -27,5 +27,15 @@ public class IndexDaoImpl implements IndexDao {
         return session.update(namespace+"update", productDto);
     } // int update(String statement, Object parameter)
 
+    @Override
+    public User selectNick(String nick) throws Exception {
+        return session.selectOne(namespace+"selectNick", nick);
+    }
+
+    @Override
+    public User selectPoint(String id) throws Exception {
+        return session.selectOne(namespace+"selectPoint", id);
+    }
+
 
 }

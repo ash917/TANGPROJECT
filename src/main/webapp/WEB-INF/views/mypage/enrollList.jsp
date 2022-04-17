@@ -168,7 +168,7 @@
 </div>
 <div style="text-align:center">
     <div class="board-container">
-
+        물품등록내역
         <table>
             <c:forEach var="po" items="${list}">
                 <tr>

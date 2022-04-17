@@ -11,4 +11,6 @@ import java.util.Map;
 public interface IndexDao {
     List<ProductDto> selectPage(Map map) throws Exception;
     int update(ProductDto productDto) throws Exception;
+    User selectNick(String nick) throws Exception;
+    User selectPoint(String id) throws Exception;
 }

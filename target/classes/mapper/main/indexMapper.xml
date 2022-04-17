@@ -19,4 +19,16 @@
         WHERE p_num = #{p_num}
     </update>
 
+    <select id="selectNick" resultType="User">
+        SELECT *
+        FROM user_info
+        WHERE nick = #{nick}
+    </select>
+
+    <select id="selectPoint" resultType="User">
+        SELECT *
+        FROM user_info
+        WHERE id = #{id}
+    </select>
+
 </mapper>

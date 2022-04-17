@@ -28,4 +28,14 @@ public class IndexServiceImpl implements IndexService {
         return indexDao.update(productDto);
     }
 
+    @Override
+    public User getNick(String nick) throws Exception {
+        return indexDao.selectNick(nick);
+    }
+
+    @Override
+    public User getPoint(String id) throws Exception {
+        return indexDao.selectPoint(id);
+    }
+
 }

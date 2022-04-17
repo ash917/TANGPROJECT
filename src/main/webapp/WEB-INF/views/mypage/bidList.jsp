@@ -167,7 +167,7 @@
     </ul>
 </div>
 <div style="text-align:center">
-    경매입찰내역(1-7번 게시물까지만 보임 보완 요망)
+    경매입찰내역
     <div class="board-container">
 
         <table>
@@ -185,17 +185,17 @@
             </c:forEach>
         </table>
         <br>
-<%--        <div>--%>
-<%--            <c:if test="${ph.showPrev}">--%>
-<%--                <a href="<c:url value='/enroll/list?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>">&lt;</a>--%>
-<%--            </c:if>--%>
-<%--            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">--%>
-<%--                <a href="<c:url value='/enroll/list?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>--%>
-<%--            </c:forEach>--%>
-<%--            <c:if test="${ph.showNext}">--%>
-<%--                <a href="<c:url value='/enroll/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>--%>
-<%--            </c:if>--%>
-<%--        </div>--%>
+        <div>
+            <c:if test="${ph.showPrev}">
+                <a href="<c:url value='/bid/list?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>">&lt;</a>
+            </c:if>
+            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                <a href="<c:url value='/bid/list?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+            </c:forEach>
+            <c:if test="${ph.showNext}">
+                <a href="<c:url value='/bid/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
+            </c:if>
+        </div>
     </div>
 </div>
 </body>
