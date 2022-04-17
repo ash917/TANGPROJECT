@@ -9,77 +9,9 @@
 <head>
     <meta charset="UTF-8">
     <title>탕탕탕</title>
-    <link rel="stylesheet" href="<c:url value='/css/menu.css'/>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: "Noto Sans KR", sans-serif;
-        }
-        .container {
-            width : 50%;
-            margin : auto;
-        }
-        .writing-header {
-            position: relative;
-            margin: 20px 0 0 0;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #323232;
-        }
-        input {
-            width: 100%;
-            height: 35px;
-            margin: 5px 0px 10px 0px;
-            border: 1px solid #e9e8e8;
-            padding: 8px;
-            background: #f8f8f8;
-            outline-color: #e6e6e6;
-        }
-        textarea {
-            width: 100%;
-            background: #f8f8f8;
-            margin: 5px 0px 10px 0px;
-            border: 1px solid #e9e8e8;
-            resize: none;
-            padding: 8px;
-            outline-color: #e6e6e6;
-        }
-        .frm {
-            width:100%;
-        }
-        .btn {
-            background-color: rgb(236, 236, 236); /* Blue background */
-            border: none; /* Remove borders */
-            color: black; /* White text */
-            padding: 6px 12px; /* Some padding */
-            font-size: 16px; /* Set a font size */
-            cursor: pointer; /* Mouse pointer on hover */
-            border-radius: 5px;
-        }
-        .btn:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
-<div id="menu">
-    <ul>
-        <li id="logo"><a href="<c:url value='/'/>">탕탕탕</a></li>
-        <li><a href="<c:url value='/product/list'/>">경매정보창</a></li>
-        <li><a href="<c:url value='/product/write'/>">물품 등록</a></li>
-        <li><a href="<c:url value='/board/list'/>">이벤트</a></li>
-        <li><a href="<c:url value='/notice/list'/>">공지사항</a></li>
-        <li><a href="<c:url value='${loginOutLink}'/>">${loginOut}</a></li>
-        <li><a href="<c:url value='/member/register'/>">회원가입</a></li>
-        <li><a href="<c:url value='/mypage/list'/>">마이페이지</a></li>
-        <li><a href="<c:url value='/history/list'/>">포인트 내역</a></li>
-        <li><a href="<c:url value='/enroll/list'/>">물품등록내역</a></li>
-        <li><a href="<c:url value='/bid/list'/>">경매입찰내역</a></li>
-    </ul>
-</div>
+<jsp:include page="../etc/top.jsp" />
 <script>
     let msg = "${msg}";
     if(msg=="WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.");

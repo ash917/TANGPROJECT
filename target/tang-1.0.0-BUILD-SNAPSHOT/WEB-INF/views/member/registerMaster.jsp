@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <title>탕탕탕</title>
     <!-- 합쳐지고 최소화된 최신 CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <!-- 부가적인 테마 -->
@@ -93,6 +95,7 @@
     }
 </script>
 <body>
+<jsp:include page="../etc/top.jsp" />
 <section id="container">
     <form action="/member/register" method="post" id="regForm">
         <div class="form-group has-feedback">

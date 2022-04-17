@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>탕탕탕</title>
+</head>
+<body>
+<jsp:include page="../etc/top.jsp" />
 <h1>회원가입약관</h1>
 <p>탕탕탕 회원가입과 관련하여 필요한 사항을 규정합니다.</p>
 <ol class="table">
