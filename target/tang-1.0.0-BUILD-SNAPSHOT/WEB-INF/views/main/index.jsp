@@ -274,7 +274,7 @@
         <table border="1" width="1000">
             <tr>
                 <td  width="250">
-                    <img src=<%=p_img1%>>
+                    <img src=<%=p_img1%> width=100 height=100>
                     <%=p_title%>
                     <%=p_ca%>|
                     <%=nick%>
@@ -330,7 +330,7 @@
             <table border="1" width="1000">
                 <tr>
                     <td  width="250">
-                        <img src=<%=p_img1%>>
+                        <img src=<%=p_img1%> width=100 height=100>
                         <%=p_title%>
                         <%=p_ca%>|
                         <%=nick%>

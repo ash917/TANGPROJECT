@@ -63,7 +63,7 @@ public class IndexController {
             }
 
             //System.out.println(no);
-//            session.setAttribute("p_num", article.getP_num());
+            session.setAttribute("p_num", article.getP_num());
 
 //            if (article.getFlag_1() != null && article.getFlag_1().equals("") && article.getCustomer_id() != null && article.getCustomer_id().equals("")) {
 //                if (article.getFlag_1().equals(customer_id)) {

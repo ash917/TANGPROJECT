@@ -38,52 +38,48 @@ public class BidController {
 
 
             ItemViewService itemViewService = new ItemViewService();
-            ProductDto article = itemViewService.getArticle(1);
+            ProductDto article1 = itemViewService.getArticle(1);
 
-            article.setCustomer_id(customer_id);
+            article1.setCustomer_id(customer_id);
 
-            String flag_1 = article.getFlag_1();
-            String flag_2 = article.getFlag_2();
-            String flag_3 = article.getFlag_3();
-            String flag_4 = article.getFlag_4();
-            String flag_5 = article.getFlag_5();
-            Boolean bid_checked = article.isBid_checked();
+            String flag_1 = article1.getFlag_1();
+            String flag_2 = article1.getFlag_2();
+            String flag_3 = article1.getFlag_3();
+            String flag_4 = article1.getFlag_4();
+            String flag_5 = article1.getFlag_5();
+            Boolean bid_checked = article1.isBid_checked();
 
-            if (article.getCustomer_id().equals(flag_1)) {
-                article.setBid_checked(true);
-                System.out.println(1);
+            if (article1.getCustomer_id().equals(flag_1)) {
+                article1.setBid_checked(true);
+                //System.out.println(1);
             }
 
-            if (article.getCustomer_id().equals(flag_2)) {
-                article.setBid_checked(true);
-                System.out.println(2);
+            if (article1.getCustomer_id().equals(flag_2)) {
+                article1.setBid_checked(true);
+                //System.out.println(2);
             }
 
-        try {
-            bidService.modify(article);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (article1.getCustomer_id().equals(flag_3)) {
+            article1.setBid_checked(true);
+            //System.out.println(1);
+        }
+
+        if (article1.getCustomer_id().equals(flag_4)) {
+            article1.setBid_checked(true);
+            //System.out.println(2);
+        }
+
+        if (article1.getCustomer_id().equals(flag_5)) {
+            article1.setBid_checked(true);
+            //System.out.println(1);
         }
 
 
-            try {
-
-                int totalCnt = bidService.getCount();
-                PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
-
-                try {
-                    bidService.modify(article);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                m.addAttribute("ph", pageHandler);
-                m.addAttribute("page", page);
-                m.addAttribute("pageSize", pageSize);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+        try {
+            bidService.modify(article1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
             itemViewService = new ItemViewService();
             ProductDto article2 = itemViewService.getArticle(2);
@@ -92,12 +88,27 @@ public class BidController {
 
             if (article2.getCustomer_id().equals(article2.getFlag_1())) {
                 article2.setBid_checked(true);
-                System.out.println(3);
+                //System.out.println(3);
             }
 
             if (article2.getCustomer_id().equals(article2.getFlag_2())) {
                 article2.setBid_checked(true);
-                System.out.println(4);
+                //System.out.println(4);
+            }
+
+            if (article2.getCustomer_id().equals(article2.getFlag_3())) {
+                article2.setBid_checked(true);
+                //System.out.println(1);
+            }
+
+            if (article2.getCustomer_id().equals(article2.getFlag_4())) {
+                article2.setBid_checked(true);
+                //System.out.println(2);
+            }
+
+            if (article2.getCustomer_id().equals(article2.getFlag_5())) {
+                article2.setBid_checked(true);
+                //System.out.println(1);
             }
 
 
@@ -123,6 +134,22 @@ public class BidController {
             //System.out.println(4);
         }
 
+        if (article3.getCustomer_id().equals(article3.getFlag_3())) {
+            article3.setBid_checked(true);
+            //System.out.println(1);
+        }
+
+        if (article3.getCustomer_id().equals(article3.getFlag_4())) {
+            article3.setBid_checked(true);
+            //System.out.println(2);
+        }
+
+        if (article3.getCustomer_id().equals(article3.getFlag_5())) {
+            article3.setBid_checked(true);
+            //System.out.println(1);
+        }
+
+
 
         try {
             bidService.modify(article3);
@@ -143,6 +170,21 @@ public class BidController {
         if (article4.getCustomer_id().equals(article4.getFlag_2())) {
             article4.setBid_checked(true);
             //System.out.println(4);
+        }
+
+        if (article4.getCustomer_id().equals(article4.getFlag_3())) {
+            article4.setBid_checked(true);
+            //System.out.println(1);
+        }
+
+        if (article4.getCustomer_id().equals(article4.getFlag_4())) {
+            article4.setBid_checked(true);
+            //System.out.println(2);
+        }
+
+        if (article4.getCustomer_id().equals(article4.getFlag_5())) {
+            article4.setBid_checked(true);
+            //System.out.println(1);
         }
 
 
@@ -167,12 +209,102 @@ public class BidController {
             //System.out.println(4);
         }
 
+        if (article5.getCustomer_id().equals(article5.getFlag_3())) {
+            article5.setBid_checked(true);
+            //System.out.println(1);
+        }
+
+        if (article5.getCustomer_id().equals(article5.getFlag_4())) {
+            article5.setBid_checked(true);
+            //System.out.println(2);
+        }
+
+        if (article5.getCustomer_id().equals(article5.getFlag_5())) {
+            article5.setBid_checked(true);
+            //System.out.println(1);
+        }
+
 
         try {
             bidService.modify(article5);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        itemViewService = new ItemViewService();
+        ProductDto article6 = itemViewService.getArticle(6);
+
+        article6.setCustomer_id(customer_id); //반드시 들어가야 함 , 새로운 객체에
+
+        if (article6.getCustomer_id().equals(article6.getFlag_1())) {
+            article6.setBid_checked(true);
+            //System.out.println(3);
+        }
+
+        if (article6.getCustomer_id().equals(article6.getFlag_2())) {
+            article6.setBid_checked(true);
+            //System.out.println(4);
+        }
+
+        if (article6.getCustomer_id().equals(article6.getFlag_3())) {
+            article6.setBid_checked(true);
+            //System.out.println(1);
+        }
+
+        if (article6.getCustomer_id().equals(article6.getFlag_4())) {
+            article6.setBid_checked(true);
+            //System.out.println(2);
+        }
+
+        if (article6.getCustomer_id().equals(article6.getFlag_5())) {
+            article6.setBid_checked(true);
+            //System.out.println(1);
+        }
+
+
+        try {
+            bidService.modify(article6);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        itemViewService = new ItemViewService();
+        ProductDto article7 = itemViewService.getArticle(7);
+
+        article7.setCustomer_id(customer_id); //반드시 들어가야 함 , 새로운 객체에
+
+        if (article7.getCustomer_id().equals(article7.getFlag_1())) {
+            article7.setBid_checked(true);
+            //System.out.println(3);
+        }
+
+        if (article7.getCustomer_id().equals(article7.getFlag_2())) {
+            article7.setBid_checked(true);
+            //System.out.println(4);
+        }
+
+        if (article7.getCustomer_id().equals(article7.getFlag_3())) {
+            article7.setBid_checked(true);
+            //System.out.println(1);
+        }
+
+        if (article7.getCustomer_id().equals(article7.getFlag_4())) {
+            article7.setBid_checked(true);
+            //System.out.println(2);
+        }
+
+        if (article7.getCustomer_id().equals(article7.getFlag_5())) {
+            article7.setBid_checked(true);
+            //System.out.println(1);
+        }
+
+
+        try {
+            bidService.modify(article7);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
 
 
@@ -201,15 +333,18 @@ public class BidController {
             List<ProductDto> list = bidService.read(map);
 
 
-            article.setBid_checked(false); //false로 초기화
+            article1.setBid_checked(false); //false로 초기화
             article2.setBid_checked(false); //false로 초기화
             article3.setBid_checked(false); //false로 초기화
             article4.setBid_checked(false); //false로 초기화
             article5.setBid_checked(false); //false로 초기화
+            article6.setBid_checked(false); //false로 초기화
+            article7.setBid_checked(false); //false로 초기화
+
 
 
             try {
-                bidService.modify(article);
+                bidService.modify(article1);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -237,6 +372,19 @@ public class BidController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            try {
+                bidService.modify(article6);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                bidService.modify(article7);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
             m.addAttribute("list", list);
             m.addAttribute("ph", pageHandler);
