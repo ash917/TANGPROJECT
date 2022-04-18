@@ -148,12 +148,41 @@
         .btn-write:hover {
             text-decoration: underline;
         }
+        .dropdown{
+            position : relative;
+            display : inline-block;
+        }
+
+        .dropdown-content{
+            display : none;
+            position : absolute;
+            z-index : 1; /*다른 요소들보다 앞에 배치*/
+        }
+
+        .dropdown-content a{
+            display : block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
     </style>
 </head>
 <body>
 <div id="menu">
     <ul>
         <li id="logo"><a href="<c:url value='/'/>">탕탕탕</a></li>
+
+        <div class="dropdown">
+            <span class="dropbtn"><font size = 10 color="white">경매참여</font></span>
+            <div class="dropdown-content">
+                <a href="http://localhost/product/list?option=C&keyword=%EC%A3%BC%EB%B0%A9">주방</a>
+                <a href="http://localhost/product/list?option=C&keyword=%EA%B0%80%EC%A0%84">가전</a>
+                <a href="http://localhost/product/list?option=C&keyword=%EC%8A%A4%ED%8F%AC%EC%B8%A0+%EB%A0%88%EC%A0%80">스포츠 레저</a>
+                <a href="http://localhost/product/list?option=C&keyword=%EC%9D%98%EB%A5%98">의류</a>
+                <a href="http://localhost/product/list?option=C&keyword=%EA%B8%B0%ED%83%80+%EC%9E%A1%ED%99%94">기타 잡화</a>
+            </div>
+        </div>
         <li><a href="<c:url value='/product/list'/>">경매정보창</a></li>
         <li><a href="<c:url value='/product/write'/>">물품 등록</a></li>
         <li><a href="<c:url value='/board/list'/>">이벤트</a></li>

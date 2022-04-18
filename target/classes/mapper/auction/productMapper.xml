@@ -37,6 +37,12 @@
         WHERE p_num = #{p_num}
     </select>
 
+<!--    <select id="selectList" parameterType="int" resultType="ProductDto">-->
+<!--        <include refid="selectFromBoard"/>-->
+<!--        WHERE p_num = #{p_num}-->
+<!--        ORDER BY p_num DESC-->
+<!--    </select>-->
+
     <select id="selectPdate" parameterType="int" resultType="String">
         SELECT p_date
         FROM product
@@ -74,6 +80,77 @@
             , bid_checked = #{bid_checked}
         WHERE p_num = #{p_num}
     </update>
+
+<!--    <sql id="searchCondition">-->
+<!--        <choose>-->
+<!--        -->
+<!--        </choose>-->
+<!--    </sql>-->
+
+    <select id="searchSelectPage" parameterType="SearchCondition" resultType="ProductDto">
+        <include refid="selectFromBoard"/>
+        WHERE true
+        ORDER BY p_num DESC
+<!--        <include refid="searchCondition"/>-->
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="searchResultCnt" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM  product
+        WHERE true
+<!--        <include refid="searchCondition"/>-->
+    </select>
+
+    <sql id="searchConditionList">
+        <choose>
+            <when test='option=="T"'>
+                AND p_title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND m_id LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="C"'>
+                AND p_ca LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="N"'>
+                AND p_num LIKE concat('%', #{keyword}, '%')
+                ORDER BY p_num DESC
+            </when>
+            <when test='option=="O"'>
+                AND a_count LIKE concat('%', #{keyword}, '%')
+                ORDER BY a_count DESC
+            </when>
+            <when test='option=="I"'>
+                AND a_price LIKE concat('%', #{keyword}, '%')
+                ORDER BY a_price DESC
+            </when>
+            <when test='option=="Z"'>
+                AND a_price LIKE concat('%', #{keyword}, '%')
+                ORDER BY a_price
+            </when>
+            <when test='option=="A"'>
+                AND (p_title   LIKE concat('%', #{keyword}, '%')
+                OR   m_id LIKE concat('%', #{keyword}, '%')
+                OR   p_ca LIKE concat('%', #{keyword}, '%')
+                OR   p_detail LIKE concat('%', #{keyword}, '%'))
+            </when>
+        </choose>
+    </sql>
+
+    <select id="searchSelectPageList" parameterType="SearchCondition" resultType="ProductDto">
+        <include refid="selectFromBoard"/>
+        WHERE true
+        <include refid="searchConditionList"/>
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="searchResultCntList" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM  product
+        WHERE true
+        <include refid="searchConditionList"/>
+    </select>
 
 
 </mapper>

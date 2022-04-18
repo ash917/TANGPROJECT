@@ -1,7 +1,6 @@
 package com.my.tang.controller.auction;
 
 
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,17 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.*;
-
-import static java.util.Date.parse;
 
 
 @Controller
@@ -143,6 +139,8 @@ public class ProductController {
 //        }
 
 
+
+
         //System.out.println(productDto.getFlag_1());
 
         try {
@@ -155,6 +153,8 @@ public class ProductController {
             rattr.addFlashAttribute("msg", "WRT_OK");
             //System.out.println(productDto.getP_title()); //productDto는 다 보낼 수 있음.. 그 각각의 값이 문제
             m.addAttribute("po", productDto);      // 등록하려던 내용을 보여줘야 함.
+
+
 
 
 
@@ -190,7 +190,7 @@ public class ProductController {
 
 
     @RequestMapping(value = "/list", method= {RequestMethod.GET, RequestMethod.POST})
-    public String list(Integer p_num, Integer page, Integer pageSize, Model m, HttpServletRequest request) {
+    public String list(SearchCondition sc,  Integer page, Integer pageSize, Model m, HttpSession session) {
 
 
         if(page==null) page=1;
@@ -198,17 +198,25 @@ public class ProductController {
 
         try {
 
+//            Map map = new HashMap();
+//            map.put("offset", (page-1)*pageSize);
+//            map.put("pageSize", pageSize);
 
-            int totalCnt = productService.getCount();
-            PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+//            int totalCnt = productService.getCount();
+            int totalCnt = productService.getSearchResultCnt(sc);
+            m.addAttribute("totalCnt", totalCnt);
+//            PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+            PageHandler pageHandler = new PageHandler(totalCnt, sc);
 
-            Map map = new HashMap();
-            map.put("offset", (page-1)*pageSize);
-            map.put("pageSize", pageSize);
-
-            List<ProductDto> list = productService.getPage(map);
+            List<ProductDto> list = productService.getSearchResultPage(sc);
+//            List<ProductDto> list2 = productService.getPage(map);
 
             //System.out.println(list.get(0).getP_num());
+
+
+
+
+
 
 //            ProductDto productDto = productService.read(p_num);
 //
@@ -233,6 +241,12 @@ public class ProductController {
             m.addAttribute("page", page);
             m.addAttribute("pageSize", pageSize);
 
+            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
+
+//            Integer p_num = (Integer) session.getAttribute("p_num");
+//            ProductDto productDto = productService.readList(p_num);
+
 
             //ProductDto dto = productService.read(p_num);
 
@@ -242,8 +256,40 @@ public class ProductController {
             e.printStackTrace();
         }
 
+        return "/auction/list";
+    }
+
+
+    @RequestMapping(value = "/list2", method= {RequestMethod.GET, RequestMethod.POST})
+    public String list2(SearchCondition sc,  Integer page, Integer pageSize, Model m, HttpSession session) {
+
+
+        if(page==null) page=1;
+        if(pageSize==null) pageSize=10;
+
+        try {
+            int totalCnt = productService.getSearchResultCntList(sc);
+            m.addAttribute("totalCnt", totalCnt);
+
+            PageHandler pageHandler = new PageHandler(totalCnt, sc);
+
+            List<ProductDto> list = productService.getSearchResultPageList(sc);
+
+            m.addAttribute("list", list);
+            m.addAttribute("ph", pageHandler);
+            m.addAttribute("page", page);
+            m.addAttribute("pageSize", pageSize);
+
+            Instant startOfToday = LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant();
+            m.addAttribute("startOfToday", startOfToday.toEpochMilli());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "auction/list";
     }
+
 
 //    @GetMapping("/modify")
 //    public String modify(HttpServletRequest request) {
@@ -396,26 +442,49 @@ public class ProductController {
         }
     }
 
-//    @PostMapping("/remove")
-//    public String remove(Integer p_num, Integer page, Integer pageSize, Model m, HttpSession session, RedirectAttributes rattr) {
-//        String m_id = (String)session.getAttribute("id");
+//    @RequestMapping("sort")
+//    public String sort(ModelAndView view, SearchCondition sc, Model m, Integer page, Integer pageSize,
+//                             @RequestParam("order_by")String order_by) {
 //
+//        if(page==null) page=1;
+//        if(pageSize==null) pageSize=10;
+//
+//        List<ProductDto> list = null;
 //        try {
-//            m.addAttribute("page", page);
-//            m.addAttribute("pageSize", pageSize);
-//
-//            int rowCnt = productService.remove(p_num, m_id);
-//
-//            if(rowCnt!=1)
-//                throw new Exception("board remove error");
-//
-//            rattr.addFlashAttribute("msg","DEL_OK");
+//            list = productService.getSearchResultPage(sc);
 //        } catch (Exception e) {
 //            e.printStackTrace();
-//            rattr.addFlashAttribute("msg", "DEL_ERR");
 //        }
 //
-//        return "redirect:/auction/list"; //모델에 담으면 redirect 시 값이 자동으로 뒤에 붙음
+//        //정렬기준 처리
+//        ProductComparator com = new ProductComparator();
+//        com.order_by = order_by;
+//        Collections.sort(list,com);
+//
+//        Map map = new HashMap();
+//        map.put("list", list);
+//        map.put("com", com);
+//        map.put("offset", (page-1)*pageSize);
+//        map.put("pageSize", pageSize);
+//
+//        try {
+//            int totalCnt = productService.getSearchResultCnt(sc);
+//            m.addAttribute("totalCnt", totalCnt);
+//            PageHandler pageHandler = new PageHandler(totalCnt, sc);
+//            List<ProductDto> result = productService.getPage(map);
+//
+//            view.addObject("data",result);
+//            view.setViewName("productList");
+//
+//            m.addAttribute("list", list);
+//            m.addAttribute("ph", pageHandler);
+//            m.addAttribute("page", page);
+//            m.addAttribute("pageSize", pageSize);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return "auction/list";
 //    }
 
     private boolean loginCheck(HttpServletRequest request) {

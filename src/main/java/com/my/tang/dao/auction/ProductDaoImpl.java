@@ -1,6 +1,7 @@
 package com.my.tang.dao.auction;
 
 import com.my.tang.domain.auction.ProductDto;
+import com.my.tang.domain.etc.SearchCondition;
 import com.my.tang.domain.event.BoardDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,12 @@ public class ProductDaoImpl implements ProductDao{
     private SqlSession session;
     private static String namespace = "com.my.tang.dao.auction.ProductMapper.";
 
+    @Override
     public int insert(ProductDto productDto) throws Exception {
        return session.insert(namespace+"insert", productDto);
     }
 
+    @Override
     public int count() throws Exception {
         return session.selectOne(namespace+"count");
     } // T selectOne(String statement)
@@ -35,9 +38,14 @@ public class ProductDaoImpl implements ProductDao{
 //    public ProductDto selectClone(Map map) throws Exception {
 //        return session.selectOne(namespace+"selectClone", map);
 //    } // List<E> selectList(String statement, Object parameter)
-
+    @Override
     public ProductDto select(int p_num) throws Exception {
         return session.selectOne(namespace+"select", p_num);
+    } // T selectOne(String statement, Object parameter)
+
+    @Override
+    public ProductDto selectList(int p_num) throws Exception {
+        return session.selectOne(namespace+"selectList", p_num);
     } // T selectOne(String statement, Object parameter)
 
     @Override
@@ -58,12 +66,34 @@ public class ProductDaoImpl implements ProductDao{
         return session.update(namespace+"update", productDto);
     } // int update(String statement, Object parameter)
 
+    @Override
     public String selectPdate(Integer p_num) throws Exception {
         return session.selectOne(namespace+"selectPdate", p_num);
     } // T selectOne(String statement, Object parameter)
 
+    @Override
     public Integer selectPnum(Integer p_num) throws Exception {
         return session.selectOne(namespace+"selectPnum", p_num);
     } // T selectOne(String statement, Object parameter)
+
+    @Override
+    public List<ProductDto> searchSelectPage(SearchCondition sc) throws Exception {
+        return session.selectList(namespace+"searchSelectPage", sc);
+    } // List<E> selectList(String statement, Object parameter)
+
+    @Override
+    public int searchResultCnt(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace+"searchResultCnt", sc);
+    } // T selectOne(String statement)
+
+    @Override
+    public List<ProductDto> searchSelectPageList(SearchCondition sc) throws Exception {
+        return session.selectList(namespace+"searchSelectPageList", sc);
+    } // List<E> selectList(String statement, Object parameter)
+
+    @Override
+    public int searchResultCntList(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace+"searchResultCntList", sc);
+    } // T selectOne(String statement)
 
 }

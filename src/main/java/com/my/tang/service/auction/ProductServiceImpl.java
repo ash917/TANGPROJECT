@@ -3,6 +3,7 @@ package com.my.tang.service.auction;
 
 import com.my.tang.dao.auction.ProductDao;
 import com.my.tang.domain.auction.ProductDto;
+import com.my.tang.domain.etc.SearchCondition;
 import com.my.tang.domain.event.BoardDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,6 +45,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductDto readList(int p_num) throws Exception {
+        return productDao.selectList(p_num);
+    }
+
+    @Override
     public int remove2(Integer p_num, String customer_id) throws Exception {
         return productDao.delete2(p_num, customer_id);
     }
@@ -61,6 +67,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Integer selectPnum(Integer p_num) throws Exception {
         return productDao.selectPnum(p_num);
+    }
+
+    @Override
+    public List<ProductDto> getSearchResultPage(SearchCondition sc) throws Exception {
+        return productDao.searchSelectPage(sc);
+    }
+
+    @Override
+    public int getSearchResultCnt(SearchCondition sc) throws Exception {
+        return  productDao.searchResultCnt(sc);
+    }
+
+    @Override
+    public List<ProductDto> getSearchResultPageList(SearchCondition sc) throws Exception {
+        return productDao.searchSelectPageList(sc);
+    }
+
+    @Override
+    public int getSearchResultCntList(SearchCondition sc) throws Exception {
+        return  productDao.searchResultCntList(sc);
     }
 
 }

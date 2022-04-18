@@ -64,4 +64,6 @@
         WHERE bno = #{bno}
     </update>
 
+
+
 </mapper>

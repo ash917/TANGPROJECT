@@ -9,6 +9,6 @@
         <typeAlias alias="User" type="com.my.tang.domain.member.User"/>
         <typeAlias alias="NoticeDto" type="com.my.tang.domain.notice.NoticeDto"/>
         <typeAlias alias="ProductDto" type="com.my.tang.domain.auction.ProductDto"/>
-
+        <typeAlias alias="SearchCondition" type="com.my.tang.domain.etc.SearchCondition"/>
     </typeAliases>
 </configuration>

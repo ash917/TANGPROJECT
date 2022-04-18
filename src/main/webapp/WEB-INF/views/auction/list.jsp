@@ -21,6 +21,25 @@
 <jsp:include page="../etc/top.jsp" />
 <div style="text-align:center">
     <div class="board-container">
+        <div class="search-container">
+            <form action="<c:url value="/product/list2"/>" class="search-form" method="get">
+                <select class="search-option" name="option">
+                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>전체</option>
+                </select>
+
+                <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+                <input type="submit" class="search-button" value="검색">
+            </form>
+
+
+            <th class="text-right" >
+                <!-- 상품 정렬 -->
+                &emsp;<a href="http://localhost/product/list2?option=O&keyword=">인기순</a>&emsp;
+                <a href="http://localhost/product/list2?option=N&keyword=">최신순</a>&emsp;
+                <a href="http://localhost/product/list2?option=I&keyword=">높은가격순</a>&emsp;
+                <a href="http://localhost/product/list2?option=Z&keyword=">낮은가격순</a> </th>
+        </div>
+
 
         <table>
             <c:forEach var="po" items="${list}">
@@ -77,16 +96,23 @@
             </c:forEach>
         </table>
         <br>
-        <div>
-            <c:if test="${ph.showPrev}">
-                <a href="<c:url value='/product/list?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>">&lt;</a>
-            </c:if>
-            <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                <a href="<c:url value='/product/list?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
-            </c:forEach>
-            <c:if test="${ph.showNext}">
-                <a href="<c:url value='/product/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
-            </c:if>
+        <div class="paging-container">
+            <div class="paging">
+                <c:if test="${totalCnt==null || totalCnt==0}">
+                    <div> 게시물이 없습니다. </div>
+                </c:if>
+                <c:if test="${totalCnt!=null && totalCnt!=0}">
+                    <c:if test="${ph.showPrev}">
+                        <a class="page" href="<c:url value="/product/list2${ph.sc.getQueryString(ph.beginPage-1)}"/>">&lt;</a>
+                    </c:if>
+                    <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+                        <a class="page ${i==ph.sc.page? "paging-active" : ""}" href="<c:url value="/product/list2${ph.sc.getQueryString(i)}"/>">${i}</a>
+                    </c:forEach>
+                    <c:if test="${ph.showNext}">
+                        <a class="page" href="<c:url value="/product/list2${ph.sc.getQueryString(ph.endPage+1)}"/>">&gt;</a>
+                    </c:if>
+                </c:if>
+            </div>
         </div>
     </div>
 </div>

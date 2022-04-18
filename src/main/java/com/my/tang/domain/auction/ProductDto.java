@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 
 
 
-public class ProductDto {
+public class ProductDto  {
     private Integer p_num;
     private String m_id;
     private String customer_id;
@@ -37,9 +37,19 @@ public class ProductDto {
     private int a_count; //입찰횟수
     private int a_price; //현재가
     private boolean bid_checked; //입찰 여부 체크
+    private Date reg_date;
 
 
 
+
+
+    public Date getReg_date() {
+        return reg_date;
+    }
+
+    public void setReg_date(Date reg_date) {
+        this.reg_date = reg_date;
+    }
 
     public boolean isBid_checked() {
         return bid_checked;
