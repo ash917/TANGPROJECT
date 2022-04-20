@@ -96,6 +96,11 @@
 </script>
 <body>
 <jsp:include page="../etc/top.jsp" />
+<script>
+    let msg = "${msg}";
+    if(msg=="REG_ERR")   alert("가입에 실패 하였습니다.");
+    if(msg=="REG_OK")    alert("회원가입이 성공적으로 되었습니다.");
+</script>
 <section id="container">
     <form action="/member/register" method="post" id="regForm">
         <div class="form-group has-feedback">

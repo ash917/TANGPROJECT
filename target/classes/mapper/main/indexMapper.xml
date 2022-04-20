@@ -31,4 +31,30 @@
         WHERE id = #{id}
     </select>
 
+    <update id="updatePoint" >
+        UPDATE user_info
+        SET  m_point = #{m_point}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateSuccess" >
+        UPDATE product
+        SET  m_point = #{m_point},
+             successful_flag = #{successful_flag}
+        WHERE p_num = #{p_num}
+    </update>
+
+    <update id="updateFlag" >
+        UPDATE product
+        SET  m_point = #{m_point},
+             immediate_flag = #{immediate_flag}
+        WHERE p_num = #{p_num}
+    </update>
+
+    <select id="selectUser" resultType="User">
+        SELECT *
+        FROM user_info
+        WHERE id = #{id}
+    </select>
+
 </mapper>

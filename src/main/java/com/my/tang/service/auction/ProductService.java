@@ -4,6 +4,7 @@ package com.my.tang.service.auction;
 import com.my.tang.domain.auction.ProductDto;
 import com.my.tang.domain.etc.SearchCondition;
 import com.my.tang.domain.event.BoardDto;
+import com.my.tang.domain.member.User;
 
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,8 @@ public interface ProductService {
     int getSearchResultCnt(SearchCondition sc) throws Exception;
     List<ProductDto> getSearchResultPageList(SearchCondition sc) throws Exception;
     int getSearchResultCntList(SearchCondition sc) throws Exception;
-
-
-
+    User selectUser(String id) throws Exception;
+    int updatePoint(int m_point, String id) throws Exception;
+    int updateFlag(Boolean p_plus_flag, Integer p_num) throws Exception;
+    int updateClassify(ProductDto dto) throws Exception;
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +37,29 @@ public class IndexDaoImpl implements IndexDao {
     public User selectPoint(String id) throws Exception {
         return session.selectOne(namespace+"selectPoint", id);
     }
+
+    @Override
+    public int updatePoint(int m_point, String id) throws Exception {
+        Map map = new HashMap();
+        map.put("m_point", m_point);
+        map.put("id", id);
+        return session.update(namespace+"updatePoint", map);
+    } // int update(String statement, Object parameter)
+
+    @Override
+    public int updateFlag(ProductDto productDto) throws Exception {
+        return session.update(namespace+"updateFlag", productDto);
+    } // int update(String statement, Object parameter)
+
+    @Override
+    public int updateSuccess(ProductDto productDto) throws Exception {
+        return session.update(namespace+"updateSuccess", productDto);
+    } // int update(String statement, Object parameter)
+
+    @Override
+    public User selectUser(String id) throws Exception {
+        return session.selectOne(namespace+"selectUser", id);
+    } // int update(String statement, Object parameter)
 
 
 }

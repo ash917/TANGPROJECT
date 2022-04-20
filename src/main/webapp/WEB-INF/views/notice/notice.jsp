@@ -23,10 +23,24 @@
         <input type="hidden" name="bno" value="${noticeDto.bno}" readonly="readonly">
         <input name="title" type="text" value="${noticeDto.title}" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}> <br>
         <textarea name="content" rows="20" id="" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}>${noticeDto.content}</textarea> <br>
+
+        <%
+            String writer = (String)session.getAttribute("id");
+            try {
+                if (writer.equals("admin")) {
+
+        %>
         <button type="button" id="writeBtn" class="btn">글쓰기</button>
         <button type="button" id="modifyBtn" class="btn">수정</button>
         <button type="button" id="removeBtn" class="btn">삭제</button>
         <button type="button" id="listBtn" class="btn">목록</button>
+        <%
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        %>
     </form>
 </div>
 <script>

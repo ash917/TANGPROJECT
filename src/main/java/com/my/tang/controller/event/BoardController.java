@@ -51,9 +51,9 @@ public class BoardController {
     }
 
     @PostMapping("/write") // insert니까 delete인 remove하고 동일
-    public BoardDto write(BoardDto boardDto, RedirectAttributes rattr, Model m, HttpServletRequest request, HttpSession session) {
+    public String write(BoardDto boardDto, RedirectAttributes rattr, Model m, HttpServletRequest request, HttpSession session) {
         if(!loginCheck(request))
-            return boardDto;  // 로그인을 안했으면 로그인 화면으로 이동
+            return "redirect:/login/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 
         String writer = (String)session.getAttribute("id");
         boardDto.setWriter(writer);
@@ -63,13 +63,13 @@ public class BoardController {
                 throw new Exception("Write failed.");
 
             rattr.addFlashAttribute("msg", "WRT_OK");
-            return boardDto;
+            return "redirect:/board/list";
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute("mode", "new"); // 글쓰기 모드로
             m.addAttribute(boardDto);      // 등록하려던 내용을 보여줘야 함.
             m.addAttribute("msg", "WRT_ERR");
-            return boardDto;
+            return "/event/board";
         }
     }
 

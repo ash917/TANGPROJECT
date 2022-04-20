@@ -36,7 +36,7 @@ public class BidController {
         Integer p_num = (Integer)session.getAttribute("p_num");
         ProductDto article1 = null;
 
-        for (int i = 0; i<= p_num; i++) {
+        for (int i = 0; i< p_num; i++) {
             ItemViewService itemViewService = new ItemViewService();
             article1 = itemViewService.getArticle(p_num - i);
 

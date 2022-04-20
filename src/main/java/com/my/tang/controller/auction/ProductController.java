@@ -9,6 +9,7 @@ import com.my.tang.controller.list.ItemViewService;
 import com.my.tang.domain.auction.ProductDto;
 import com.my.tang.domain.etc.PageHandler;
 import com.my.tang.domain.etc.SearchCondition;
+import com.my.tang.domain.member.User;
 import com.my.tang.service.auction.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -299,7 +301,7 @@ public class ProductController {
 
 
     @RequestMapping(value = "/modify", method= {RequestMethod.GET, RequestMethod.POST})
-    public String modify(ProductDto productDto, SearchCondition sc, RedirectAttributes rattr, Model m, HttpSession session, HttpServletRequest request) {
+    public String modify(User user, ProductDto productDto, SearchCondition sc, RedirectAttributes rattr, Model m, HttpSession session, HttpServletRequest request) {
         if(!loginCheck(request))
             return "redirect:/login/login?toURL="+request.getRequestURL();  // 로그인을 안했으면 로그인 화면으로 이동
 
@@ -307,12 +309,12 @@ public class ProductController {
             if (productService.modify(productDto)!= 1) // 메소드가 실행이 되어야 DB값이 변함
                 throw new Exception("Modify failed.");
 
+
             // DB에서 한 줄 읽어 오는 소스
             Integer no = productDto.getP_num();
             //System.out.println(productDto.getP_num());
             ItemViewService itemViewService = new ItemViewService();
             ProductDto article = itemViewService.getArticle(no);
-            //System.out.println(article.getP_plus());
 
 
 //            if (article.getA_price() == article.getP_eprice()) {
@@ -350,7 +352,6 @@ public class ProductController {
             }
 
             if(article.getCustomer_id().equals(customer_id)) { //손님 id값이 같으면
-                article.setP_status(article.getP_status() + 1); // 상태값을 1 올리고 저장
                 if(article.getFlag_1().equals("") || article.getFlag_1() == null) { //flag가 널값이면
                     article.setFlag_1(article.getCustomer_id()); //거기에 손님 아이디값 저장해 두기
                 } else if(!article.getFlag_1().equals(article.getCustomer_id()) && (article.getFlag_2().equals("") ||
@@ -391,9 +392,12 @@ public class ProductController {
 
 
 
-            if(article.getP_status() > 0) { // 상태값이 0보다 크면
+
+            if(article.getA_count() > 0) { // 상태값이 0보다 크면
                 article.setA_nprice(article.getA_price()); //현재값 입찰값에 저장
             }
+
+
 
 //            if(article.getP_status() > 0 && (article.getA_nprice() == article.getA_price())) {
 //                article.setClassify("진행중 - 현재 최고가 입찰");
@@ -417,10 +421,129 @@ public class ProductController {
 //            } else if (customer_id.equals(flag_5)) {
 //                article.setBid_checked(true);
 //            }
+            //포인트 처리
+            String id = (String)session.getAttribute("id");
+            article.setM_point(productService.selectUser(id).getM_point());
+            //productService.updateFlag(article.isP_plus_flag(), article.getP_num());
+            //System.out.println("1");
+
+//            if (!article.getFlag_1().equals(article.getCustomer_id()) && !article.getFlag_2().equals(article.getCustomer_id()) &&
+//                    !article.getFlag_3().equals(article.getCustomer_id()) && !article.getFlag_4().equals(article.getCustomer_id()) &&
+//                    !article.getFlag_5().equals(article.getCustomer_id())) { //입찰한 경험이 없으면 입찰가 빼주고, 입찰한 경험이 있으면 p_plus만큼 빼주기
+//                article.setM_point(article.getM_point() - article.getA_nprice());
+//            }  else {
+//                article.setM_point(article.getM_point() - article.getP_plus());
+//            }
 
 
-            //System.out.println("중요" + article.getA_price() + article.getP_plus());
+            if (article.isP_plus_flag() == false){ //처음에는 현재 포인트에서 입찰가 빼주기, 두 번째부터는 p_plus만큼 빼주기
+                article.setM_point(article.getM_point() - article.getA_nprice());
+                article.setP_plus_flag(true);
+                //System.out.println("2");
+            } else {
+                article.setM_point(article.getM_point() - article.getP_plus());
+                //System.out.println("3" + article.getP_plus());
+            }
+
+
+
+//            article.setClassify("입찰");
+
+            productService.updatePoint(article.getM_point(), id);
+
+//            //System.out.println("0");
+//            //즉시구매
+//            if (article.getA_price() == article.getP_eprice()) {
+//                //System.out.println("1");
+//                if (customer_id.equals(id)) {
+//                    //System.out.println("2");
+//                    article.setClassify("즉시구매");
+//                    article.setIn_point(-(article.getP_eprice()));
+//                }
+//            }
+//
+//            //낙찰
+//            Calendar now= Calendar.getInstance();
+//
+//            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+//            Date date = format.parse(article.getP_date()); // String -> Date
+//            Calendar cal = Calendar.getInstance();
+//            cal.setTime(date);  // Date -> Calendar
+//
+//            long diffSec = (now.getTimeInMillis() - cal.getTimeInMillis()) / 1000;
+//
+//            //System.out.println("지금" + now.getTimeInMillis());
+//            //System.out.println("마감" + cal.getTimeInMillis());
+//
+//            if (article.getP_eprice() != article.getA_price() && diffSec >= 0) {
+//                if (customer_id.equals(id)) {
+//                    article.setClassify("낙찰");
+//                    article.setIn_point(-(article.getA_price()));
+//                }
+//            }
+//
+//            //System.out.println("0");
+//            //판매 수익
+//            if(diffSec >= 0 || (article.getA_price() == article.getP_eprice())) {
+//                //System.out.println("1");
+//                if (article.getM_id().equals(id)) {
+//                    //System.out.println("2");
+//                    article.setClassify("판매수익");
+//                    article.setIn_point(article.getA_price());
+//                }
+//            }
+
+
+           //System.out.println("중요" + article.getA_price() + article.getP_plus());
             productService.modify(article);
+
+            Calendar now= Calendar.getInstance();
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date date = format.parse(article.getP_date()); // String -> Date
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);  // Date -> Calendar
+
+            long diffSec = (now.getTimeInMillis() - cal.getTimeInMillis()) / 1000;
+
+            //System.out.println("지금" + now.getTimeInMillis());
+            //System.out.println("마감" + cal.getTimeInMillis());
+
+            //System.out.println("0");
+            //판매 수익
+            if(diffSec >= 0 || (article.getA_price() == article.getP_eprice())) {
+                //System.out.println("1");
+                if (article.getM_id().equals(article.getM_id())) {
+                    //System.out.println("2");
+                    article.setClassify_sell(article.getM_id()+"/판매수익");
+                    article.setIn_point_sell(article.getA_price());
+                }
+            }
+
+
+            //System.out.println("0");
+            //즉시구매
+            if (article.getA_price() == article.getP_eprice()) {
+                //System.out.println("1");
+                if (article.getCustomer_id().equals(id)) {
+                    //System.out.println("2");
+                    article.setClassify_buy(article.getCustomer_id()+"/낙찰");
+                    article.setIn_point_buy(-(article.getP_eprice()));
+                }
+            }
+
+            //낙찰
+            if (article.getP_eprice() != article.getA_price() && diffSec >= 0) {
+                if (article.getCustomer_id().equals(id)) {
+                    article.setClassify_buy(article.getCustomer_id()+"/낙찰");
+                    article.setIn_point_buy(-(article.getA_price()));
+                }
+            }
+
+
+            productService.updateClassify(article);
+
+
 
             //System.out.println(article.getP_plus());
 
@@ -438,7 +561,7 @@ public class ProductController {
 //            m.addAttribute("article", article);
             m.addAttribute(productDto);
             m.addAttribute("msg", "MOD_ERR");
-            return "/product/productList";
+            return "/auction/productList";
         }
     }
 

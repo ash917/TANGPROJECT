@@ -38,4 +38,24 @@ public class IndexServiceImpl implements IndexService {
         return indexDao.selectPoint(id);
     }
 
+    @Override
+    public int updatePoint(int m_point, String id) throws Exception {
+        return indexDao.updatePoint(m_point, id);
+    }
+
+    @Override
+    public int updateFlag(ProductDto productDto) throws Exception {
+        return indexDao.updateFlag(productDto);
+    }
+
+    @Override
+    public int updateSuccess(ProductDto productDto) throws Exception {
+        return indexDao.updateSuccess(productDto);
+    }
+
+    @Override
+    public User selectUser(String id) throws Exception {
+        return indexDao.selectUser(id);
+    }
+
 }

@@ -9,18 +9,26 @@
     </select>
 
     <sql id="selectFromBoard">
-        SELECT in_num, m_id, in_point, in_info, in_date
-        FROM pointinfo
+        SELECT *
+        FROM user_info
     </sql>
 
-    <select id="select" parameterType="int" resultType="HistoryDto">
+    <select id="select" parameterType="String" resultType="User">
         <include refid="selectFromBoard"/>
-        WHERE in_num = #{in_num}
+        WHERE id = #{id}
     </select>
 
-    <select id="selectPage" parameterType="map" resultType="HistoryDto">
-        <include refid="selectFromBoard"/>
-        ORDER BY in_date DESC, in_num DESC
+    <select id="selectProduct" resultType="ProductDto">
+        SELECT *
+        FROM product
+        WHERE p_num = #{p_num}
+    </select>
+
+    <select id="selectPage" parameterType="map" resultType="ProductDto">
+        SELECT *
+        FROM product
+        WHERE classify_buy = "낙찰" or classify_sell = "판매수익"
+        ORDER BY mod_reg_date DESC
         LIMIT #{offset}, #{pageSize}
     </select>
 
@@ -29,5 +37,17 @@
         FROM user_info
         WHERE id = #{id}
     </select>
+
+    <update id="updateClassify" parameterType="ProductDto">
+        UPDATE product
+        SET  classify_buy = #{classify_buy} ,
+             classify_sell = #{classify_sell}
+        WHERE p_num = #{p_num}
+    </update>
+
+    <update id="updateCurrent" parameterType="String">
+        UPDATE product
+        SET  current_id = #{current_id}
+    </update>
 
 </mapper>

@@ -26,9 +26,21 @@
     <div class="board-container">
         <div class="search-container">
             이벤트
-            <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/write"/>'"><i class="fa fa-pencil"></i> 글쓰기</button>
-        </div>
+            <%
+                String writer = (String)session.getAttribute("id");
+                try {
+                    if (writer.equals("admin")) {
 
+            %>
+            <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/board/write"/>'"><i class="fa fa-pencil"></i> 글쓰기</button>
+            <%
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            %>
+        </div>
         <table>
             <tr>
                 <th class="no">번호</th>
@@ -41,7 +53,7 @@
                 <tr>
                     <td>${boardDto.bno}</td>
                     <td><a href="<c:url value="/board/read?bno=${boardDto.bno}&page=${page}&pageSize=${pageSize}"/>">${boardDto.title}</a></td>
-                    <td class="writer">${boardDto.writer}</td>
+                    <td class="writer">관리자</td>
                     <c:choose>
                         <c:when test="${boardDto.reg_date.time >= startOfToday}">
                             <td class="regdate"><fmt:formatDate value="${boardDto.reg_date}" pattern="HH:mm" type="time"/></td>

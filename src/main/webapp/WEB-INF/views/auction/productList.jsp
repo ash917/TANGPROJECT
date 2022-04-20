@@ -3,6 +3,7 @@
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="com.my.tang.domain.member.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ page session="true"%>
@@ -10,6 +11,7 @@
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
 <c:set var="article" value="${article}"/>
+<c:set var="articleUser" value="${articleUser}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,13 +70,19 @@
                 <input type="hidden" id="a_price" name="a_price" value="${article.a_price}">
                 <input type="hidden" id="p_eprice" name="p_eprice" value="${article.p_eprice}">
                 <input type="hidden" id="a_count" name="a_count" value="${article.a_count}">
-                <input type="hidden" id="p_status" name="p_status" value="${article.p_status}">
                 <input type="hidden" id="a_nprice" name="a_nprice" value="${article.a_nprice}">
                 <input type="hidden" id="flag_1" name="flag_1" value="${article.flag_1}">
                 <input type="hidden" id="flag_2" name="flag_2" value="${article.flag_2}">
                 <input type="hidden" id="flag_3" name="flag_3" value="${article.flag_3}">
                 <input type="hidden" id="flag_4" name="flag_4" value="${article.flag_4}">
                 <input type="hidden" id="flag_5" name="flag_5" value="${article.flag_5}">
+                <input type="hidden" id="m_point" name="m_point" value="${article.m_point}">
+                <input type="hidden" id="classify_buy" name="classify_buy" value="${article.classify_buy}">
+                <input type="hidden" id="classify_sell" name="classify_sell" value="${article.classify_sell}">
+                  <input type="hidden" id="p_plus_flag" name="p_plus_flag" value="${article.p_plus_flag}">
+                <input type="hidden" id="in_point_buy" name="in_point_buy" value="${article.in_point_buy}">
+                <input type="hidden" id="in_point_sell" name="in_point_sell" value="${article.in_point_sell}">
+<%--                <input type="hidden" id="mod_reg_date" name="mod_reg_date" value="${article.mod_reg_date}">--%>
                 <input type="text" id="p_plus" name="p_plus" value="${article.p_plus}" placeholder="입찰가 입력">
 
                 <%
@@ -97,12 +105,19 @@
                   System.out.println("지금" + now.getTimeInMillis());
                   System.out.println("마감" + cal.getTimeInMillis());
 
-                  if (article.getP_eprice() != article.getA_price() && diffSec < 0) {
+
+                  String id = (String)session.getAttribute("id");
+                  itemViewService = new ItemViewService();
+                  User articleUser = itemViewService.getArticleUser(id);
+
+                  if (articleUser.getM_point() >= article.getA_price()) {  //중요: 포인트가 현재가 이상일 때만 거래 허용
+                      if (article.getP_eprice() != article.getA_price() && diffSec < 0) {  //시간 다 되면 입찰 버튼 없애 버리기
                 %>
 
                   <input type="submit" id="addprice" name="addprice" value="입찰">
 
                 <%
+                  }
                   }
                 %>
               </form>

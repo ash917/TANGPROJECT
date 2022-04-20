@@ -20,8 +20,7 @@
         <table>
             <c:forEach var="list" items="${list}">
                 <tr>
-                    <td>${list.p_num}<br>
-                        ${list.classify}</td>
+                    <td>${list.p_num}<br></td>
                     <td><a href="<c:url value="/product/read?p_num=${list.p_num}&page=${page}&pageSize=${pageSize}"/>">${list.p_title}</a></td>
                     <td>마감시간 ${list.p_date}</td>
                     <td>시작가 ${list.p_sprice}<br>

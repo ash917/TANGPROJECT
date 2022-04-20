@@ -12,20 +12,15 @@ public class User {
     private String nick;
     private String hp;
     private int m_point;
+    private String classify;
     private Date reg_date;
 
-    public User() {}
+    public String getClassify() {
+        return classify;
+    }
 
-    public User(String id, String pwd, String pwd2, String name, String email, String nick, String hp, int m_point, Date reg_date) {
-        this.id = id;
-        this.pwd = pwd;
-        this.pwd2 = pwd2;
-        this.name = name;
-        this.email = email;
-        this.nick = nick;
-        this.hp = hp;
-        this.m_point = m_point;
-        this.reg_date = reg_date;
+    public void setClassify(String classify) {
+        this.classify = classify;
     }
 
     public String getId() {

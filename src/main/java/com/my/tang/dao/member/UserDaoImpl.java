@@ -55,7 +55,8 @@ public class UserDaoImpl implements UserDao {
                 user.setNick(rs.getString(6));
                 user.setHp(rs.getString(7));
                 user.setM_point(rs.getInt(8));
-                user.setReg_date(new Date(rs.getTimestamp(9).getTime()));
+                user.setClassify(rs.getString(9));
+                user.setReg_date(new Date(rs.getTimestamp(10).getTime()));
             }
         }
 
@@ -66,7 +67,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public int insertUser(User user) throws Exception {
         int rowCnt = 0;
-        String sql = "INSERT INTO user_info VALUES (?,?,?,?,?,?,?,0, now()) ";
+        String sql = "INSERT INTO user_info VALUES (?,?,?,?,?,?,?, 0, null, now()) ";
 
         try(
                 Connection conn = ds.getConnection();
@@ -89,7 +90,7 @@ public class UserDaoImpl implements UserDao {
         int rowCnt = 0;
 
         String sql = "UPDATE user_info " +
-                "SET pwd = ?, pwd2 =?, name=?, email=?, nick =?, hp =?, m_point=?, reg_date=? " +
+                "SET pwd = ?, pwd2 =?, name=?, email=?, nick =?, hp =?, m_point=?, classify=?, reg_date=? " +
                 "WHERE id = ? ";
 
         try (
@@ -103,8 +104,9 @@ public class UserDaoImpl implements UserDao {
             pstmt.setString(5, user.getNick());
             pstmt.setString(6, user.getHp());
             pstmt.setInt(7, user.getM_point());
-            pstmt.setTimestamp(8, new java.sql.Timestamp(user.getReg_date().getTime()));
-            pstmt.setString(9, user.getId());
+            pstmt.setString(8, user.getClassify());
+            pstmt.setTimestamp(9, new java.sql.Timestamp(user.getReg_date().getTime()));
+            pstmt.setString(10, user.getId());
 
             rowCnt = pstmt.executeUpdate();
         }

@@ -1,3 +1,10 @@
+<%@ page import="com.my.tang.domain.auction.ProductDto" %>
+<%@ page import="com.my.tang.controller.list.ItemViewService" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.ParseException" %>
+<%@ page import="com.my.tang.domain.member.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
@@ -12,6 +19,7 @@
     <title>탕탕탕</title>
 </head>
 <body>
+
 <jsp:include page="../etc/top.jsp" />
 <script>
     let msg = "${msg}";
@@ -35,22 +43,23 @@
             </tr>
             <c:forEach var="historyDto" items="${list}">
                 <tr>
-                    <td>${historyDto.in_date}</td>
-                    <td class="writer">${productDto.classify}</td>
-                    <td class="viewcnt">${historyDto.in_point}</td>
+                    <td>${historyDto.mod_reg_date}</td>
+                    <td>${ historyDto.current_id.equals(historyDto.m_id) ? historyDto.classify_sell : historyDto.classify_buy }</td>
+                    <td>${ historyDto.current_id.equals(historyDto.m_id) ? historyDto.in_point_sell : historyDto.in_point_buy }</td>
+
                 </tr>
             </c:forEach>
         </table>
         <br>
         <div>
             <c:if test="${ph.showPrev}">
-                <a href="<c:url value='/board/list?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>">&lt;</a>
+                <a href="<c:url value='/history/list?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>">&lt;</a>
             </c:if>
             <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-                <a href="<c:url value='/board/list?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+                <a href="<c:url value='/history/list?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
             </c:forEach>
             <c:if test="${ph.showNext}">
-                <a href="<c:url value='/board/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
+                <a href="<c:url value='/history/list?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
             </c:if>
         </div>
     </div>

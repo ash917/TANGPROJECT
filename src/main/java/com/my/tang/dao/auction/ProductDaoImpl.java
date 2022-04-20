@@ -3,6 +3,7 @@ package com.my.tang.dao.auction;
 import com.my.tang.domain.auction.ProductDto;
 import com.my.tang.domain.etc.SearchCondition;
 import com.my.tang.domain.event.BoardDto;
+import com.my.tang.domain.member.User;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -95,5 +96,31 @@ public class ProductDaoImpl implements ProductDao{
     public int searchResultCntList(SearchCondition sc) throws Exception {
         return session.selectOne(namespace+"searchResultCntList", sc);
     } // T selectOne(String statement)
+
+    @Override
+    public User selectUser(String id) throws Exception {
+        return session.selectOne(namespace+"selectUser", id);
+    } // int update(String statement, Object parameter)
+
+    @Override
+    public int updatePoint(int m_point, String id) throws Exception {
+        Map map = new HashMap();
+        map.put("m_point", m_point);
+        map.put("id", id);
+        return session.update(namespace+"updatePoint", map);
+    } // int update(String statement, Object parameter)
+
+    @Override
+    public int updateFlag(Boolean p_plus_flag, Integer p_num) throws Exception {
+        Map map = new HashMap();
+        map.put("p_plus_flag", p_plus_flag);
+        map.put("p_num", p_num);
+        return session.update(namespace+"updateFlag", map);
+    } // int update(String statement, Object parameter)
+
+    @Override
+    public int updateClassify(ProductDto productDto) throws Exception {
+        return session.update(namespace+"updateClassify", productDto);
+    } // int update(String statement, Object parameter)
 
 }

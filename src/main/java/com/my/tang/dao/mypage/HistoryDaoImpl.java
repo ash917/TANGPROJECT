@@ -1,5 +1,7 @@
 package com.my.tang.dao.mypage;
 
+import com.my.tang.domain.auction.ProductDto;
+import com.my.tang.domain.event.BoardDto;
 import com.my.tang.domain.mypage.HistoryDto;
 import com.my.tang.domain.member.User;
 import org.apache.ibatis.session.SqlSession;
@@ -20,12 +22,13 @@ public class HistoryDaoImpl implements HistoryDao {
         return session.selectList(namespace+"selectAll");
     } // List<E> selectList(String statement)
 
-    public HistoryDto select(Integer in_num) throws Exception {
-        return session.selectOne(namespace + "select", in_num);
+    @Override
+    public User select(String id) throws Exception {
+        return session.selectOne(namespace + "select", id);
     } // T selectOne(String statement, Object parameter)
 
     @Override
-    public List<HistoryDto> selectPage(Map map) throws Exception {
+    public List<ProductDto> selectPage(Map map) throws Exception {
         return session.selectList(namespace+"selectPage", map);
     } // List<E> selectList(String statement, Object parameter)
 
@@ -33,6 +36,21 @@ public class HistoryDaoImpl implements HistoryDao {
     public User selectPoint(String id) throws Exception {
         return session.selectOne(namespace+"selectPoint", id);
     }
+
+    @Override
+    public List<ProductDto> selectProduct(Integer p_num) throws Exception {
+        return session.selectList(namespace + "selectProduct", p_num);
+    } // T selectOne(String statement, Object parameter)
+
+    @Override
+    public int updateClassify(ProductDto dto) throws Exception {
+        return session.update(namespace+"updateClassify", dto);
+    } // int update(String statement, Object parameter)
+
+    @Override
+    public int updateCurrent(String id) throws Exception {
+        return session.update(namespace+"updateCurrent", id);
+    } // int update(String statement, Object parameter)
 
 
 }

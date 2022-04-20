@@ -5,6 +5,7 @@ import com.my.tang.dao.auction.ProductDao;
 import com.my.tang.domain.auction.ProductDto;
 import com.my.tang.domain.etc.SearchCondition;
 import com.my.tang.domain.event.BoardDto;
+import com.my.tang.domain.member.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -88,5 +89,27 @@ public class ProductServiceImpl implements ProductService {
     public int getSearchResultCntList(SearchCondition sc) throws Exception {
         return  productDao.searchResultCntList(sc);
     }
+
+    @Override
+    public User selectUser(String id) throws Exception {
+        return productDao.selectUser(id);
+    }
+
+    @Override
+    public int updatePoint(int m_point, String id) throws Exception {
+        return productDao.updatePoint(m_point, id);
+    }
+
+    @Override
+    public int updateFlag(Boolean p_plus_flag, Integer p_num) throws Exception {
+        return productDao.updateFlag(p_plus_flag, p_num);
+    }
+
+    @Override
+    public int updateClassify(ProductDto dto) throws Exception {
+        return productDao.updateClassify(dto);
+    }
+
+
 
 }

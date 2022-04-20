@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/*")
@@ -66,6 +65,42 @@ public class IndexController {
 
             //System.out.println(no);
             session.setAttribute("p_num", article.getP_num());
+
+            String id = (String)session.getAttribute("id");
+            article.setM_point(indexService.selectUser(id).getM_point());
+
+            //판매수익 처리(중요: 게시물당 각각 한 번만 처리 되어야할 소스이기 때문에 flag 이용)
+            if (article.getImmediate_flag() == 1) {
+                if(id.equals(article.getM_id()) && article.getA_price() == article.getP_eprice()) { //즉시구매 case
+                    article.setM_point(article.getM_point() + article.getP_eprice());
+                    article.setImmediate_flag(4);
+                }
+                indexService.updateFlag(article);
+            }
+
+            Calendar now= Calendar.getInstance();
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date date = format.parse(article.getP_date());
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+
+            long diffSec = (now.getTimeInMillis() - cal.getTimeInMillis()) / 1000;
+
+            if (article.getSuccessful_flag() == 1) {
+                if(article.getP_eprice() != article.getA_price() && diffSec >= 0) { //일반 낙찰 case
+                    if(id.equals(article.getM_id())) {
+                        article.setM_point(article.getM_point() + article.getA_price());
+                        article.setSuccessful_flag(4);
+                    }
+                }
+                indexService.updateSuccess(article);
+            }
+
+//            if(!article.equals("") && article != null)
+            indexService.updatePoint(article.getM_point(), id);
+
+
 
 //            if (article.getFlag_1() != null && article.getFlag_1().equals("") && article.getCustomer_id() != null && article.getCustomer_id().equals("")) {
 //                if (article.getFlag_1().equals(customer_id)) {

@@ -11,6 +11,7 @@ public class ProductDto  {
     private Integer p_num;
     private String m_id;
     private String customer_id;
+    private String current_id;
     private String flag_1; //입찰한 고유 customer_id 저장
     private String flag_2;
     private String flag_3;
@@ -21,6 +22,7 @@ public class ProductDto  {
     private int p_sprice; //시작가
     private int p_eprice; //즉구가
     private int p_plus;//더한값
+    private boolean p_plus_flag;
     private Date p_sdate; //경매시작일
     private String p_date; //경매종료일
     // private Date p_rdate; //남은시간
@@ -31,17 +33,99 @@ public class ProductDto  {
     private String p_img4;
     private String p_img5;
     private String p_detail;
-    private String classify; //분류(즉시구매, 판매수입, 입찰 등)
-    private int p_status; //입찰 여부
+    private String classify_buy; //분류(즉시구매, 판매수입, 입찰 등)
+    private String classify_sell;
     private int a_nprice; //입찰가
     private int a_count; //입찰횟수
     private int a_price; //현재가
     private boolean bid_checked; //입찰 여부 체크
+    private int m_point;
     private Date reg_date;
+    private Date mod_reg_date;
+    private int in_point_buy;//변동 포인트
+    private int in_point_sell;
+    private int immediate_flag;
+    private int successful_flag;
 
+    public int getImmediate_flag() {
+        return immediate_flag;
+    }
 
+    public void setImmediate_flag(int immediate_flag) {
+        this.immediate_flag = immediate_flag;
+    }
 
+    public int getSuccessful_flag() {
+        return successful_flag;
+    }
 
+    public void setSuccessful_flag(int successful_flag) {
+        this.successful_flag = successful_flag;
+    }
+
+    public String getCurrent_id() {
+        return current_id;
+    }
+
+    public void setCurrent_id(String current_id) {
+        this.current_id = current_id;
+    }
+
+    public String getClassify_buy() {
+        return classify_buy;
+    }
+
+    public void setClassify_buy(String classify_buy) {
+        this.classify_buy = classify_buy;
+    }
+
+    public String getClassify_sell() {
+        return classify_sell;
+    }
+
+    public void setClassify_sell(String classify_sell) {
+        this.classify_sell = classify_sell;
+    }
+
+    public int getIn_point_buy() {
+        return in_point_buy;
+    }
+
+    public void setIn_point_buy(int in_point_buy) {
+        this.in_point_buy = in_point_buy;
+    }
+
+    public int getIn_point_sell() {
+        return in_point_sell;
+    }
+
+    public void setIn_point_sell(int in_point_sell) {
+        this.in_point_sell = in_point_sell;
+    }
+
+    public boolean isP_plus_flag() {
+        return p_plus_flag;
+    }
+
+    public void setP_plus_flag(boolean p_plus_flag) {
+        this.p_plus_flag = p_plus_flag;
+    }
+
+    public Date getMod_reg_date() {
+        return mod_reg_date;
+    }
+
+    public void setMod_reg_date(Date mod_reg_date) {
+        this.mod_reg_date = mod_reg_date;
+    }
+
+    public int getM_point() {
+        return m_point;
+    }
+
+    public void setM_point(int m_point) {
+        this.m_point = m_point;
+    }
 
     public Date getReg_date() {
         return reg_date;
@@ -255,21 +339,6 @@ public class ProductDto  {
         this.p_detail = p_detail;
     }
 
-    public String getClassify() {
-        return classify;
-    }
-
-    public void setClassify(String classify) {
-        this.classify = classify;
-    }
-
-    public int getP_status() {
-        return p_status;
-    }
-
-    public void setP_status(int p_status) {
-        this.p_status = p_status;
-    }
 
     public int getA_nprice() {
         return a_nprice;

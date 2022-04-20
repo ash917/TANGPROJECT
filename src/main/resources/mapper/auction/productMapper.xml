@@ -6,9 +6,9 @@
 
     <insert id="insert" parameterType="ProductDto" >
         INSERT INTO product
-        (m_id, customer_id, flag_1, flag_2, flag_3, flag_4, flag_5, p_title, p_ca, p_sprice, p_eprice, p_plus, p_sdate, p_date, p_img1, p_img2, p_img3, p_img4, p_img5, p_detail, classify, p_status, a_nprice, a_count, a_price, bid_checked)
+        (m_id, customer_id, flag_1, flag_2, flag_3, flag_4, flag_5, p_title, p_ca, p_sprice, p_eprice, p_plus, p_sdate, p_date, p_img1, p_img2, p_img3, p_img4, p_img5, p_detail, classify_buy, classify_sell, a_nprice, a_count, a_price, bid_checked, reg_date, p_plus_flag, mod_reg_date, in_point_buy, in_point_sell, immediate_flag, successful_flag)
         VALUES
-            (#{m_id}, #{customer_id}, #{flag_1}, #{flag_2}, #{flag_3}, #{flag_4}, #{flag_5}, #{p_title}, #{p_ca}, #{p_sprice}, #{p_eprice}, 0, now(), #{p_date}, #{p_img1}, #{p_img2}, #{p_img3}, #{p_img4}, #{p_img5}, #{p_detail}, #{classify}, 0, 0, 0, #{a_price}, 0)
+            (#{m_id}, #{customer_id}, #{flag_1}, #{flag_2}, #{flag_3}, #{flag_4}, #{flag_5}, #{p_title}, #{p_ca}, #{p_sprice}, #{p_eprice}, 0, now(), #{p_date}, #{p_img1}, #{p_img2}, #{p_img3}, #{p_img4}, #{p_img5}, #{p_detail}, #{classify_buy}, #{classify_sell}, 0, 0, #{a_price}, 0, now(), 0, now(), 0, 0, 1, 1)
     </insert>
 
     <select id="count" resultType="int">
@@ -55,6 +55,12 @@
         WHERE p_num = #{p_num}
     </select>
 
+    <select id="selectUser" resultType="User">
+        SELECT *
+        FROM user_info
+        WHERE id = #{id}
+    </select>
+
     <delete id="deleteAll">
         DELETE FROM product
     </delete>
@@ -68,18 +74,47 @@
         SET   a_price = #{a_price}
             , p_plus = #{p_plus}
             , a_count = #{a_count}
-            , classify = #{classify}
+            , classify_buy = #{classify_buy}
+            , classify_sell = #{classify_sell}
             , customer_id = #{customer_id}
             , a_nprice = #{a_nprice}
-            , p_status = #{p_status}
             , flag_1 = #{flag_1}
             , flag_2 = #{flag_2}
             , flag_3 = #{flag_3}
             , flag_4 = #{flag_4}
             , flag_5 = #{flag_5}
             , bid_checked = #{bid_checked}
+            , m_point = #{m_point}
+            , mod_reg_date = now()
+            , p_plus_flag = #{p_plus_flag}
+            , in_point_buy = #{in_point_buy}
+            , in_point_sell = #{in_point_sell}
         WHERE p_num = #{p_num}
     </update>
+
+    <update id="updatePoint" >
+        UPDATE user_info
+        SET  m_point = #{m_point}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateFlag" >
+        UPDATE product
+        SET
+          p_plus_flag = #{p_plus_flag}
+        WHERE p_num = #{p_num}
+    </update>
+
+    <update id="updateClassify" parameterType="ProductDto">
+        UPDATE product
+        SET  classify_buy = #{classify_buy} ,
+             classify_sell = #{classify_sell} ,
+             in_point_buy = #{in_point_buy}   ,
+             in_point_sell = #{in_point_sell}
+        WHERE p_num = #{p_num}
+    </update>
+
+
 
 <!--    <sql id="searchCondition">-->
 <!--        <choose>-->

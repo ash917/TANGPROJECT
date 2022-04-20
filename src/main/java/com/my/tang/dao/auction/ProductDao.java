@@ -4,6 +4,7 @@ package com.my.tang.dao.auction;
 import com.my.tang.domain.auction.ProductDto;
 import com.my.tang.domain.etc.SearchCondition;
 import com.my.tang.domain.event.BoardDto;
+import com.my.tang.domain.member.User;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,14 @@ public interface ProductDao {
     int searchResultCnt(SearchCondition sc) throws Exception;
     List<ProductDto> searchSelectPageList(SearchCondition sc) throws Exception;
     int searchResultCntList(SearchCondition sc) throws Exception;
+    User selectUser(String id) throws Exception;
+    int updatePoint(int m_point, String id) throws Exception;
+    int updateFlag(Boolean p_plus_flag, Integer p_num) throws Exception;
+    int updateClassify(ProductDto productDto) throws Exception;
+
+
+
+
 
 
 }

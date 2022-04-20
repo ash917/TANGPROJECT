@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 
 import com.my.tang.domain.auction.ProductDto;
+import com.my.tang.domain.member.User;
 
 public class ItemDAO {
 	private Connection con = null;
@@ -72,10 +73,11 @@ public class ItemDAO {
 				article.setP_num(rs.getInt("p_num"));
 				article.setM_id(rs.getString("m_id"));
 				article.setCustomer_id(rs.getString("customer_id"));
+				article.setCurrent_id(rs.getString("current_id"));
 				article.setP_title(rs.getString("p_title"));
 				article.setP_ca(rs.getString("p_ca"));
 				article.setP_sdate(rs.getDate("p_sdate"));
-				article.setP_date(rs.getString("p_date").substring(0, 16));
+				article.setP_date(rs.getString("p_date"));
 				article.setP_sprice(rs.getInt("p_sprice"));
 				article.setA_price(rs.getInt("a_price"));
 				article.setP_detail(rs.getString("p_detail"));
@@ -84,8 +86,8 @@ public class ItemDAO {
 				article.setP_img3(rs.getString("p_img3"));
 				article.setP_img4(rs.getString("p_img4"));
 				article.setP_img5(rs.getString("p_img5"));
-				article.setClassify(rs.getString("classify"));
-				article.setP_status(rs.getInt("p_status"));
+				article.setClassify_buy(rs.getString("classify_buy"));
+				article.setClassify_sell(rs.getString("classify_sell"));
 				article.setA_nprice(rs.getInt("a_nprice"));
 				article.setA_count(rs.getInt("a_count"));
 				article.setP_eprice(rs.getInt("p_eprice"));
@@ -96,6 +98,14 @@ public class ItemDAO {
 				article.setFlag_4(rs.getString("flag_4"));
 				article.setFlag_5(rs.getString("flag_5"));
 				article.setBid_checked(rs.getBoolean("bid_checked"));
+				article.setM_point(rs.getInt("m_point"));
+				article.setReg_date(rs.getDate("reg_date"));
+				article.setMod_reg_date(rs.getDate("mod_reg_date"));
+				article.setP_plus_flag(rs.getBoolean("p_plus_flag"));
+				article.setIn_point_buy(rs.getInt("in_point_buy"));
+				article.setIn_point_sell(rs.getInt("in_point_sell"));
+				article.setImmediate_flag(rs.getInt("immediate_flag"));
+				article.setSuccessful_flag(rs.getInt("successful_flag"));
 
 			}
 
@@ -109,6 +119,51 @@ public class ItemDAO {
 
 		return article;
 	}
+
+
+	//상품 정보 가져오기
+	public User selectArticleUser(String id) {
+		User articleUser = null;
+
+		try {
+			sql = "SELECT * FROM user_info WHERE id = ?";
+
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				articleUser = new User();
+				articleUser.setId(rs.getString("id"));
+				articleUser.setPwd(rs.getString("pwd"));
+				articleUser.setPwd2(rs.getString("pwd2"));
+				articleUser.setName(rs.getString("name"));
+				articleUser.setEmail(rs.getString("email"));
+				articleUser.setNick(rs.getString("nick"));
+				articleUser.setHp(rs.getString("hp"));
+				articleUser.setM_point(rs.getInt("m_point"));
+				articleUser.setClassify(rs.getString("classify"));
+				articleUser.setReg_date(rs.getDate("reg_date"));
+			}
+
+			//System.out.println("1" + article.getP_plus());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return articleUser;
+	}
+
+
+
+
+
+
+
+
 
 	public int selectOrderArticle(int no) {
 		int orderarticle = 0;
@@ -132,5 +187,7 @@ public class ItemDAO {
 
 		return orderarticle;
 	}
+
+
 
 }

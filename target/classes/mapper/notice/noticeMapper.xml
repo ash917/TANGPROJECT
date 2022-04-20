@@ -12,14 +12,14 @@
     </delete>
 
     <delete id="delete" parameterType="map">
-        DELETE FROM noticeboard WHERE bno = #{bno} and writer = #{writer}
+        DELETE FROM noticeboard WHERE bno = #{bno}
     </delete>
 
     <insert id="insert" parameterType="NoticeDto">
         INSERT INTO noticeboard
-            (title, content, writer)
+            (title, content)
         VALUES
-            (#{title}, #{content}, #{writer})
+            (#{title}, #{content})
     </insert>
 
     <select id="selectAll" resultType="NoticeDto">
@@ -49,7 +49,7 @@
         SET   title = #{title}
           , content = #{content}
           , up_date = now()
-        WHERE bno = #{bno} and writer = #{writer}
+        WHERE bno = #{bno}
     </update>
 
     <update id="updateCommentCnt" parameterType="map">

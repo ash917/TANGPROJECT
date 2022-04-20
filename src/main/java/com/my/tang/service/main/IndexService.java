@@ -13,4 +13,8 @@ public interface IndexService {
     int modify(ProductDto productDto) throws Exception;
     User getNick(String nick) throws Exception;
     User getPoint(String id) throws Exception;
+    int updatePoint(int m_point, String id) throws Exception;
+    int updateFlag(ProductDto productDto) throws Exception;
+    int updateSuccess(ProductDto productDto) throws Exception;
+    User selectUser(String id) throws Exception;
 }

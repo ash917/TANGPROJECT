@@ -32,6 +32,7 @@ public class BoardDaoImpl implements BoardDao {
         return session.delete(namespace+"delete", map);
     } // int delete(String statement, Object parameter)
 
+    @Override
     public int insert(BoardDto dto) throws Exception {
         return session.insert(namespace+"insert", dto);
     } // int insert(String statement, Object parameter)
@@ -41,6 +42,7 @@ public class BoardDaoImpl implements BoardDao {
         return session.selectList(namespace+"selectAll");
     } // List<E> selectList(String statement)
 
+    @Override
     public BoardDto select(Integer bno) throws Exception {
         return session.selectOne(namespace + "select", bno);
     } // T selectOne(String statement, Object parameter)

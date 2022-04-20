@@ -4,14 +4,17 @@ package com.my.tang.controller.member;
 
 
 import com.my.tang.dao.member.UserDao;
+import com.my.tang.domain.etc.SearchCondition;
 import com.my.tang.domain.member.User;
 import com.my.tang.service.member.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -37,7 +40,7 @@ public class MemberController {
 
     // 회원가입 post
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String postRegister(User user, HttpSession session) throws Exception {
+    public String postRegister(User user, HttpSession session, SearchCondition sc, RedirectAttributes rattr, Model m)  {
         String id = null;
         if(session.getAttribute("id") != null){
             id = (String) session.getAttribute("id");
@@ -46,9 +49,18 @@ public class MemberController {
             return null;
         }
 
-        userDao.insertUser(user);
+        try {
+            if (userDao.insertUser(user) != 1)
+                throw new Exception("Register failed.");
 
-        return "redirect:/";
+            rattr.addFlashAttribute("msg", "REG_OK");
+            return "redirect:/";
+        } catch (Exception e) {
+            e.printStackTrace();
+            m.addAttribute("msg", "REG_ERR");
+            return "member/registerMaster";
+        }
+
     }
 
     // 회원가입2 get

@@ -29,28 +29,34 @@
                 <%
               try {
 
-                String classification;
-                int in_point;
-                Date in_date;
+                Date mod_reg_date;
+                String  classify_buy;
+                String  classify_sell;
+                int in_point_buy;
+                int in_point_sell;
 
                 Class.forName("com.mysql.jdbc.Driver");
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/springbasic?autoReconnect=true&useUnicode = true&characterEncoding = UTF-8  ", "root", "root");
                 Statement stmt = conn.createStatement();
 
-                ResultSet rs = stmt.executeQuery("select in_date, classification, in_point from pointinfo order by in_num desc limit 0,3");
+                ResultSet rs = stmt.executeQuery("select mod_reg_date, classify_buy, classify_sell, in_point_buy, in_point_sell from product order by mod_reg_date desc limit 0,3");
 
                 while(rs.next()){
-                in_date =rs.getDate(1);
-                classification=rs.getString(2);
-                in_point = rs.getInt(3);
+                mod_reg_date =rs.getDate(1);
+                classify_buy=rs.getString(2);
+                classify_sell=rs.getString(3);
+                in_point_buy = rs.getInt(4);
+                in_point_sell = rs.getInt(5);
 
     %>
             <table border="1" width="2000">
                 <tr>
                     <td  width="500">
-                         <%=in_date%>
-                         <%=classification%>
-                         <%=in_point%>
+                         <%=mod_reg_date%>
+                         <%=classify_buy%>
+                         <%=classify_sell%>
+                         <%=in_point_buy%>
+                         <%=in_point_sell%>
                     </td>
                 </tr>
             </table>

@@ -26,7 +26,21 @@
     <div class="board-container">
         <div class="search-container">
             공지사항
+            <%
+                String writer = (String)session.getAttribute("id");
+                try {
+                    if (writer.equals("admin")) {
+
+            %>
             <button id="writeBtn" class="btn-write" onclick="location.href='<c:url value="/notice/write"/>'"><i class="fa fa-pencil"></i> 글쓰기</button>
+            <%
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            %>
+
         </div>
 
         <table>
@@ -41,7 +55,7 @@
                 <tr>
                     <td>${noticeDto.bno}</td>
                     <td><a href="<c:url value="/notice/read?bno=${noticeDto.bno}&page=${page}&pageSize=${pageSize}"/>">${noticeDto.title}</a></td>
-                    <td class="writer">${noticeDto.writer}</td>
+                    <td class="writer">관리자</td>
                     <c:choose>
                         <c:when test="${noticeDto.reg_date.time >= startOfToday}">
                             <td class="regdate"><fmt:formatDate value="${noticeDto.reg_date}" pattern="HH:mm" type="time"/></td>

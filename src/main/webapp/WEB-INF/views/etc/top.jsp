@@ -176,11 +176,11 @@
         <div class="dropdown">
             <span class="dropbtn"><font size = 10 color="white">경매참여</font></span>
             <div class="dropdown-content">
-                <a href="http://localhost/product/list?option=C&keyword=%EC%A3%BC%EB%B0%A9">주방</a>
-                <a href="http://localhost/product/list?option=C&keyword=%EA%B0%80%EC%A0%84">가전</a>
-                <a href="http://localhost/product/list?option=C&keyword=%EC%8A%A4%ED%8F%AC%EC%B8%A0+%EB%A0%88%EC%A0%80">스포츠 레저</a>
-                <a href="http://localhost/product/list?option=C&keyword=%EC%9D%98%EB%A5%98">의류</a>
-                <a href="http://localhost/product/list?option=C&keyword=%EA%B8%B0%ED%83%80+%EC%9E%A1%ED%99%94">기타 잡화</a>
+                <a href="http://localhost/product/list2?option=C&keyword=%EC%A3%BC%EB%B0%A9">주방</a>
+                <a href="http://localhost/product/list2?option=C&keyword=%EA%B0%80%EC%A0%84">가전</a>
+                <a href="http://localhost/product/list2?option=C&keyword=%EC%8A%A4%ED%8F%AC%EC%B8%A0+%EB%A0%88%EC%A0%80">스포츠 레저</a>
+                <a href="http://localhost/product/list2?option=C&keyword=%EC%9D%98%EB%A5%98">의류</a>
+                <a href="http://localhost/product/list2?option=C&keyword=%EA%B8%B0%ED%83%80+%EC%9E%A1%ED%99%94">기타 잡화</a>
             </div>
         </div>
         <li><a href="<c:url value='/product/list'/>">경매정보창</a></li>
@@ -202,6 +202,7 @@
         <li><a href="<c:url value='/member/register'/>">회원가입</a></li>
         <li><a href="<c:url value='/mypage/list'/>">마이페이지</a></li>
         <li><a href="<c:url value='/history/list'/>">포인트 내역</a></li>
+        <li><a href="<c:url value='/deposit/list'/>">포인트 입금</a></li>
         <li><a href="<c:url value='/enroll/list'/>">물품등록내역</a></li>
         <li><a href="<c:url value='/bid/list'/>">경매입찰내역</a></li>
     </ul>
