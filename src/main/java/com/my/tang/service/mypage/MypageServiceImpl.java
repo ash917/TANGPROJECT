@@ -2,6 +2,7 @@ package com.my.tang.service.mypage;
 
 
 import com.my.tang.dao.mypage.MypageDao;
+import com.my.tang.domain.auction.ProductDto;
 import com.my.tang.domain.member.User;
 import com.my.tang.domain.mypage.MypageDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class MypageServiceImpl implements MypageService {
     @Override
     public User getPoint(String id) throws Exception {
         return mypageDao.selectPoint(id);
+    }
+
+    @Override
+    public List<ProductDto> getPage(Map map) throws Exception {
+        return mypageDao.selectPage(map);
     }
 
 

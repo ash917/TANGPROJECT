@@ -1,6 +1,7 @@
 package com.my.tang.controller.mypage;
 
 
+import com.my.tang.domain.auction.ProductDto;
 import com.my.tang.domain.etc.PageHandler;
 import com.my.tang.domain.member.User;
 import com.my.tang.service.mypage.MypageService;
@@ -40,8 +41,10 @@ public class MypageController {
             map.put("offset", (page-1)*pageSize);
             map.put("pageSize", pageSize);
 
+            List<ProductDto> list = mypageService.getPage(map);
 
 
+            m.addAttribute("list", list);
             m.addAttribute("user", user);
             m.addAttribute("ph", pageHandler);
             m.addAttribute("page", page);

@@ -349,6 +349,7 @@ public class ProductController {
             if(a_price > p_eprice) {   // 현재가가 즉구가보다 높으면
                 //a_price = p_eprice;
                 article.setA_price(article.getP_eprice()); // 현재가에 즉구가 입력
+                article.setP_plus(article.getP_eprice()); // p_plus에도 즉구가 입력
             }
 
             if(article.getCustomer_id().equals(customer_id)) { //손님 id값이 같으면

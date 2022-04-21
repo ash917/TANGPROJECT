@@ -2,9 +2,6 @@ package com.my.tang.domain.auction;
 
 
 import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 
 
 public class ProductDto  {
@@ -40,12 +37,28 @@ public class ProductDto  {
     private int a_price; //현재가
     private boolean bid_checked; //입찰 여부 체크
     private int m_point;
-    private Date reg_date;
-    private Date mod_reg_date;
+    private String reg_date;
+    private String mod_reg_date;
     private int in_point_buy;//변동 포인트
     private int in_point_sell;
     private int immediate_flag;
     private int successful_flag;
+
+    public String getReg_date() {
+        return reg_date;
+    }
+
+    public void setReg_date(String reg_date) {
+        this.reg_date = reg_date;
+    }
+
+    public String getMod_reg_date() {
+        return mod_reg_date;
+    }
+
+    public void setMod_reg_date(String mod_reg_date) {
+        this.mod_reg_date = mod_reg_date;
+    }
 
     public int getImmediate_flag() {
         return immediate_flag;
@@ -111,13 +124,6 @@ public class ProductDto  {
         this.p_plus_flag = p_plus_flag;
     }
 
-    public Date getMod_reg_date() {
-        return mod_reg_date;
-    }
-
-    public void setMod_reg_date(Date mod_reg_date) {
-        this.mod_reg_date = mod_reg_date;
-    }
 
     public int getM_point() {
         return m_point;
@@ -127,13 +133,6 @@ public class ProductDto  {
         this.m_point = m_point;
     }
 
-    public Date getReg_date() {
-        return reg_date;
-    }
-
-    public void setReg_date(Date reg_date) {
-        this.reg_date = reg_date;
-    }
 
     public boolean isBid_checked() {
         return bid_checked;

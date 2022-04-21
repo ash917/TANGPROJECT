@@ -3,6 +3,8 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page session="true"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="com.my.tang.controller.list.ItemViewService" %>
+<%@ page import="com.my.tang.domain.auction.ProductDto" %>
 <c:set var="loginId" value="${sessionScope.id}"/>
 <c:set var="loginOutLink" value="${loginId=='' ? '/login/login' : '/login/logout'}"/>
 <c:set var="loginOut" value="${loginId=='' ? 'Login' : 'ID='+=loginId}"/>
@@ -29,7 +31,7 @@
                 <%
               try {
 
-                Date mod_reg_date;
+                String mod_reg_date;
                 String  classify_buy;
                 String  classify_sell;
                 int in_point_buy;
@@ -39,24 +41,42 @@
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/springbasic?autoReconnect=true&useUnicode = true&characterEncoding = UTF-8  ", "root", "root");
                 Statement stmt = conn.createStatement();
 
-                ResultSet rs = stmt.executeQuery("select mod_reg_date, classify_buy, classify_sell, in_point_buy, in_point_sell from product order by mod_reg_date desc limit 0,3");
+                ResultSet rs = stmt.executeQuery("select mod_reg_date, classify_buy, classify_sell, in_point_buy, in_point_sell from product order by mod_reg_date desc limit 0,1");
 
                 while(rs.next()){
-                mod_reg_date =rs.getDate(1);
+                mod_reg_date =rs.getString(1);
                 classify_buy=rs.getString(2);
                 classify_sell=rs.getString(3);
                 in_point_buy = rs.getInt(4);
                 in_point_sell = rs.getInt(5);
 
     %>
+
             <table border="1" width="2000">
                 <tr>
                     <td  width="500">
                          <%=mod_reg_date%>
-                         <%=classify_buy%>
-                         <%=classify_sell%>
-                         <%=in_point_buy%>
-                         <%=in_point_sell%>
+                        <%
+                            Integer p_num = (Integer)session.getAttribute("p_num");
+                            String id = (String)session.getAttribute("id");
+                            ProductDto article = null;
+
+
+                            ItemViewService itemViewService = new ItemViewService();
+                            article = itemViewService.getArticle(p_num);
+
+
+                            if (!article.getM_id().equals(id)) {
+                                     out.print(classify_buy);
+                            } else if (article.getM_id().equals(id)) {
+                                      out.print(classify_sell);
+                            }
+                            if (!article.getM_id().equals(id)) {
+                                     out.print(in_point_buy);
+                            } else if (article.getM_id().equals(id)) {
+                                out.print(in_point_sell);
+                            }
+                        %>
                     </td>
                 </tr>
             </table>
@@ -66,6 +86,7 @@
           out.println(e);
           }
      %>
+
 <br><br><br>
             <!-- 최근 게시물 소스 -->
             <table border="0" width="1000">

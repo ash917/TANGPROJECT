@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.my.tang.dao.mypage.HistoryMapper">
-    <select id="selectAll" resultType="HistoryDto">
-        SELECT in_num, m_id, in_point, in_info, in_date
-        FROM pointinfo
-        ORDER BY in_date DESC, in_num DESC
-    </select>
+<!--    <select id="selectAll" resultType="HistoryDto">-->
+<!--        SELECT in_num, m_id, in_point, in_info, in_date-->
+<!--        FROM pointinfo-->
+<!--        ORDER BY in_date DESC, in_num DESC-->
+<!--    </select>-->
 
     <sql id="selectFromBoard">
         SELECT *

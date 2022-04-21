@@ -1,5 +1,6 @@
 package com.my.tang.dao.mypage;
 
+import com.my.tang.domain.auction.ProductDto;
 import com.my.tang.domain.member.User;
 import com.my.tang.domain.mypage.MypageDto;
 import org.apache.ibatis.session.SqlSession;
@@ -24,5 +25,10 @@ public class MypageDaoImpl implements MypageDao {
     public User selectPoint(String id) throws Exception {
         return session.selectOne(namespace+"selectPoint", id);
     }
+
+    @Override
+    public List<ProductDto> selectPage(Map map) throws Exception {
+        return session.selectList(namespace+"selectPage", map);
+    } // List<E> selectList(String statement, Object parameter)
 
 }

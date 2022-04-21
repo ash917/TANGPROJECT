@@ -99,8 +99,8 @@ public class ItemDAO {
 				article.setFlag_5(rs.getString("flag_5"));
 				article.setBid_checked(rs.getBoolean("bid_checked"));
 				article.setM_point(rs.getInt("m_point"));
-				article.setReg_date(rs.getDate("reg_date"));
-				article.setMod_reg_date(rs.getDate("mod_reg_date"));
+				article.setReg_date(rs.getString("reg_date"));
+				article.setMod_reg_date(rs.getString("mod_reg_date"));
 				article.setP_plus_flag(rs.getBoolean("p_plus_flag"));
 				article.setIn_point_buy(rs.getInt("in_point_buy"));
 				article.setIn_point_sell(rs.getInt("in_point_sell"));

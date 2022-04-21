@@ -6,9 +6,9 @@
 
     <insert id="insert" parameterType="ProductDto" >
         INSERT INTO product
-        (m_id, customer_id, flag_1, flag_2, flag_3, flag_4, flag_5, p_title, p_ca, p_sprice, p_eprice, p_plus, p_sdate, p_date, p_img1, p_img2, p_img3, p_img4, p_img5, p_detail, classify_buy, classify_sell, a_nprice, a_count, a_price, bid_checked, reg_date, p_plus_flag, mod_reg_date, in_point_buy, in_point_sell, immediate_flag, successful_flag)
+        (m_id, customer_id, flag_1, flag_2, flag_3, flag_4, flag_5, p_title, p_ca, p_sprice, p_eprice, p_plus, p_sdate, p_date, p_img1, p_img2, p_img3, p_img4, p_img5, p_detail, classify_buy, classify_sell, a_nprice, a_count, a_price, bid_checked, reg_date, p_plus_flag, in_point_buy, in_point_sell, immediate_flag, successful_flag)
         VALUES
-            (#{m_id}, #{customer_id}, #{flag_1}, #{flag_2}, #{flag_3}, #{flag_4}, #{flag_5}, #{p_title}, #{p_ca}, #{p_sprice}, #{p_eprice}, 0, now(), #{p_date}, #{p_img1}, #{p_img2}, #{p_img3}, #{p_img4}, #{p_img5}, #{p_detail}, #{classify_buy}, #{classify_sell}, 0, 0, #{a_price}, 0, now(), 0, now(), 0, 0, 1, 1)
+            (#{m_id}, #{customer_id}, #{flag_1}, #{flag_2}, #{flag_3}, #{flag_4}, #{flag_5}, #{p_title}, #{p_ca}, #{p_sprice}, #{p_eprice}, 0, now(), #{p_date}, #{p_img1}, #{p_img2}, #{p_img3}, #{p_img4}, #{p_img5}, #{p_detail}, #{classify_buy}, #{classify_sell}, 0, 0, #{a_price}, 0, now(), 0, 0, 0, 1, 1)
     </insert>
 
     <select id="count" resultType="int">
@@ -83,9 +83,9 @@
             , flag_3 = #{flag_3}
             , flag_4 = #{flag_4}
             , flag_5 = #{flag_5}
+            , mod_reg_date = now()
             , bid_checked = #{bid_checked}
             , m_point = #{m_point}
-            , mod_reg_date = now()
             , p_plus_flag = #{p_plus_flag}
             , in_point_buy = #{in_point_buy}
             , in_point_sell = #{in_point_sell}

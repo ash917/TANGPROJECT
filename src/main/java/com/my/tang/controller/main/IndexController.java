@@ -66,40 +66,57 @@ public class IndexController {
             //System.out.println(no);
             session.setAttribute("p_num", article.getP_num());
 
-            String id = (String)session.getAttribute("id");
-            article.setM_point(indexService.selectUser(id).getM_point());
 
-            //판매수익 처리(중요: 게시물당 각각 한 번만 처리 되어야할 소스이기 때문에 flag 이용)
-            if (article.getImmediate_flag() == 1) {
-                if(id.equals(article.getM_id()) && article.getA_price() == article.getP_eprice()) { //즉시구매 case
-                    article.setM_point(article.getM_point() + article.getP_eprice());
-                    article.setImmediate_flag(4);
+            Integer p_num = (Integer)session.getAttribute("p_num");
+
+            ProductDto article1 = null;
+
+            for (int i = 0; i< p_num; i++) {
+                ItemViewService itemViewService = new ItemViewService();
+                article1 = itemViewService.getArticle(p_num - i);
+
+                if (article1 == null) {
+                    break;
                 }
-                indexService.updateFlag(article);
-            }
 
-            Calendar now= Calendar.getInstance();
+                String id = (String)session.getAttribute("id");
+                //System.out.println(indexService.selectUser(id).getM_point());
+                article1.setM_point(indexService.selectUser(id).getM_point());
 
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            Date date = format.parse(article.getP_date());
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
 
-            long diffSec = (now.getTimeInMillis() - cal.getTimeInMillis()) / 1000;
 
-            if (article.getSuccessful_flag() == 1) {
-                if(article.getP_eprice() != article.getA_price() && diffSec >= 0) { //일반 낙찰 case
-                    if(id.equals(article.getM_id())) {
-                        article.setM_point(article.getM_point() + article.getA_price());
-                        article.setSuccessful_flag(4);
+                //판매수익 처리(중요: 게시물당 각각 한 번만 처리 되어야할 소스이기 때문에 flag 이용)
+                if (article1.getImmediate_flag() == 1) {
+                    if(id.equals(article1.getM_id()) && (article1.getA_price() == article1.getP_eprice())) { //즉시구매 case
+                        article1.setM_point(article1.getM_point() + article1.getP_eprice());
+                        article1.setImmediate_flag(4);
                     }
+                    indexService.updateFlag(article1);
                 }
-                indexService.updateSuccess(article);
-            }
+
+                Calendar now= Calendar.getInstance();
+
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                Date date = format.parse(article1.getP_date());
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(date);
+
+                long diffSec = (now.getTimeInMillis() - cal.getTimeInMillis()) / 1000;
+
+                if (article1.getSuccessful_flag() == 1) {
+                    if((article1.getP_eprice() != article1.getA_price()) && diffSec >= 0) { //일반 낙찰 case
+                        if(id.equals(article1.getM_id())) {
+                            article1.setM_point(article1.getM_point() + article1.getA_price());
+                            article1.setSuccessful_flag(4);
+                        }
+                    }
+                    indexService.updateSuccess(article1);
+                }
 
 //            if(!article.equals("") && article != null)
-            indexService.updatePoint(article.getM_point(), id);
+                indexService.updatePoint(article1.getM_point(), id);
 
+            }
 
 
 //            if (article.getFlag_1() != null && article.getFlag_1().equals("") && article.getCustomer_id() != null && article.getCustomer_id().equals("")) {

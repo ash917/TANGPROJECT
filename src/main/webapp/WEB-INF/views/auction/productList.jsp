@@ -110,7 +110,7 @@
                   itemViewService = new ItemViewService();
                   User articleUser = itemViewService.getArticleUser(id);
 
-                  if (articleUser.getM_point() >= article.getA_price()) {  //중요: 포인트가 현재가 이상일 때만 거래 허용
+                  if ((articleUser.getM_point() >= article.getA_price()) && !article.getM_id().equals(id)) {  //중요: 포인트가 현재가 이상일 때만 거래 허용 && 본인 id로는 본인 물건에 입찰 불가능
                       if (article.getP_eprice() != article.getA_price() && diffSec < 0) {  //시간 다 되면 입찰 버튼 없애 버리기
                 %>
 

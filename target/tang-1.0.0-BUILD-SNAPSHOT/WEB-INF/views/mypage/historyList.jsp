@@ -36,7 +36,7 @@
         포인트 ${user.m_point} P
         <table>
             <tr>
-                <th class="title">날짜</th>
+                <th class="title">번호</th>
                 <th class="writer">분류</th>
                 <th class="regdate">변동포인트</th>
 

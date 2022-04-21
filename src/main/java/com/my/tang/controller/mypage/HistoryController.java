@@ -35,8 +35,6 @@ public class HistoryController {
 
         ProductDto article = null;
 
-
-
         Integer p_num = (Integer)session.getAttribute("p_num");
         String current_id = (String)session.getAttribute("id");
         //System.out.println(p_num);

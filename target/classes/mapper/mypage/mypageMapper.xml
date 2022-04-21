@@ -13,4 +13,11 @@
         FROM user_info
         WHERE id = #{id}
     </select>
+
+    <select id="selectPage" parameterType="map" resultType="ProductDto">
+        SELECT *
+        FROM product
+        ORDER BY p_num DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
 </mapper>

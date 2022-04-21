@@ -1,0 +1,93 @@
+CREATE TABLE `user_info` (
+`id` varchar(20) NOT NULL,
+`pwd` varchar(45) NOT NULL,
+`pwd2` varchar(45) NOT NULL,
+`name` varchar(50)             ,
+`email` varchar(50)  NOT NULL      ,
+`nick` varchar(50)    NOT NULL      ,
+`hp` varchar(50)       NOT NULL    ,
+`m_point` integer DEFAULT '0'   ,
+classify varchar(20) ,
+`reg_date` datetime DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+insert into user_info values('admin','1111','1111','홍길동','aa@aa.net','관리자','010-777-7777',1000000000,'',sysdate());
+insert into user_info values('aaa','1111','1111','최홍만','aa@aa.net','씨름','010-777-7777',1000000000,'',sysdate());
+
+CREATE TABLE `board` (
+`bno` int(11) NOT NULL AUTO_INCREMENT,
+`title` varchar(45) NOT NULL,
+`content` text NOT NULL,
+`writer` varchar(30) DEFAULT NULL,
+`view_cnt` int(11) DEFAULT '0',
+`comment_cnt` int(11) DEFAULT '0',
+`reg_date` datetime DEFAULT CURRENT_TIMESTAMP,
+`up_date` datetime DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`bno`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `noticeboard` (
+`bno` int(11) NOT NULL AUTO_INCREMENT,
+`title` varchar(45) NOT NULL,
+`content` text NOT NULL,
+`writer` varchar(30) DEFAULT NULL,
+`view_cnt` int(11) DEFAULT '0',
+`comment_cnt` int(11) DEFAULT '0',
+`reg_date` datetime DEFAULT CURRENT_TIMESTAMP,
+`up_date` datetime DEFAULT CURRENT_TIMESTAMP,
+PRIMARY KEY (`bno`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE product
+(
+    p_num       int AUTO_INCREMENT, 
+    m_id        VARCHAR(20)    , 
+    customer_id  VARCHAR(20)   ,
+    current_id  VARCHAR(20)   ,
+    flag_1     VARCHAR(20)    ,
+    flag_2     VARCHAR(20)    ,
+    flag_3     VARCHAR(20)    ,
+    flag_4     VARCHAR(20)    ,
+    flag_5     VARCHAR(20)    ,
+    p_title     VARCHAR(50)    , 
+    p_ca        VARCHAR(20)    , 
+    p_sprice    int                  , 
+    p_eprice    int              , 
+    p_plus       int              ,
+    p_plus_flag boolean      ,
+    p_sdate     datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    p_date      VARCHAR(50),  
+    p_img1      VARCHAR(2048)    , 
+    p_img2      VARCHAR(2048)    , 
+    p_img3      VARCHAR(2048)    , 
+    p_img4      VARCHAR(2048)    , 
+    p_img5      VARCHAR(2048)    , 
+    p_detail    varchar(2048)            , 
+    classify_buy   varchar(10)         ,
+    classify_sell   varchar(10)         ,
+    a_nprice    int          , 
+    a_count     int          , 
+    a_price     int          , 
+    bid_checked     boolean ,
+    m_point integer  ,
+    reg_date     VARCHAR(50) ,
+    mod_reg_date     VARCHAR(50)  ,
+    in_point_buy    int     ,
+    in_point_sell     int     ,
+    immediate_flag   int    ,
+    successful_flag    int   ,
+PRIMARY KEY (p_num)     
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE pointinfo
+(
+    in_num      int  NOT NULL AUTO_INCREMENT, 
+    m_id        VARCHAR(20)    NOT NULL, 
+    classification VARCHAR(10) NOT NULL,
+    in_point    int          NOT NULL, 
+    in_info     int          NOT NULL, 
+    in_date     datetime DEFAULT CURRENT_TIMESTAMP  NOT NULL,
+PRIMARY KEY (in_num)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
